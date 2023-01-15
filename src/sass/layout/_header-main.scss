@@ -1,0 +1,59 @@
+.header {
+  background-color: rgba(13, 14, 14, 0.548);
+  padding-top: 40px;
+  padding-bottom: 44px;
+  height: 230px;
+
+  background-image: url();
+  background-size: cover;
+
+  @media screen and (min-width: 768px) {
+    padding-bottom: 45px;
+    height: 216px;
+  }
+
+  @media screen and (min-width: 1280px) {
+  }
+}
+.header__nav {
+}
+.nav {
+  margin-bottom: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logo {
+}
+.nav__list {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav__item {
+  text-align: center;
+}
+.nav__item:not(:last-child) {
+  margin-right: 40px;
+}
+.nav__link {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(14 / 12);
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+.nav__link--current {
+}
+.header__form {
+}
+.header__input {
+}
+.btn {
+}
+.btn-submit {
+}

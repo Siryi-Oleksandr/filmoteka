@@ -1,6 +1,10 @@
 @import './common';
 @import './base/reset';
 @import './base/typography';
+@import './utils/variables';
+@import './utils/placeholders';
+@import './utils/mixins';
+
 @import './base/body';
 @import './layout/header-main';
 @import './layout/main';

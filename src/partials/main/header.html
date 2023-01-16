@@ -1,7 +1,12 @@
 <header class="header">
   <div class="container">
     <nav class="header__nav nav">
-      <a href="/src/index.html" class="logo">Logo Filmoteka</a>
+      <a href="/src/index.html" class="logo__link">
+        <svg class="logo__icon" width="24" height="24">
+          <use href="./images/sprite.svg#film"></use>
+        </svg>
+        <span class="logo__title">Filmoteka</span></a
+      >
       <ul class="nav__list">
         <li class="nav__item">
           <a href="/src/index.html" class="nav__link nav__link--current"
@@ -9,7 +14,9 @@
           >
         </li>
         <li class="nav__item">
-          <a href="/src/library.html" class="nav__link">My Library</a>
+          <a href="/src/library.html" class="nav__link nav__link--redirect"
+            >My Library</a
+          >
         </li>
       </ul>
     </nav>
@@ -20,7 +27,11 @@
         placeholder="Movie search"
         name="query"
       />
-      <button class="btn btn-submit">Search</button>
+      <button class="btn btn-submit">
+        <svg class="btn-submit__icon" width="12" height="12">
+          <use href="./images/sprite.svg#search"></use>
+        </svg>
+      </button>
     </form>
   </div>
 </header>

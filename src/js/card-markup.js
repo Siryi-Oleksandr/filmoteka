@@ -2,6 +2,8 @@ export function createMarkupFilmsList(moviesData) {
   return moviesData
     .map(movie => {
       const { genres, id, imgUrl, name, rating, year } = movie;
+      const genresToShow = trimGenresList(genres);
+
       return `<li class="films__item">
         <a href="" class="films__link">
           <div class="films__img-wrapper">
@@ -14,7 +16,7 @@ export function createMarkupFilmsList(moviesData) {
           <div class="films__info">
             <p class="films__name">${name}</p>
             <p class="films__desk">
-              <span class="films__genre">${genres}</span> |
+              <span class="films__genre">${genresToShow}</span> |
               <span class="films__year">${year}</span>
             </p>
             <p class="films__desk">
@@ -26,4 +28,12 @@ export function createMarkupFilmsList(moviesData) {
       </li>`;
     })
     .join('');
+}
+
+function trimGenresList(genres) {
+  if (genres.length <= 3) {
+    return genres.join(', ');
+  } else {
+    return `${genres[0]}, ${genres[1]}, Other`;
+  }
 }

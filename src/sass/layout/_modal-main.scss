@@ -2,26 +2,41 @@
   position: absolute;
   top: 50%;
   left: 50%;
+  z-index: 20;
 
   padding: 48px 20px 40px;
   width: 96%;
 
+  overflow: auto;
+  max-height: 100vh;
   border-radius: 4px;
+
+  opacity: 1;
+  visibility: visible;
 
   background-color: $bg-white-color;
 
   transform: translate(-50%, -50%) scale(1);
-  opacity: 1;
   transition: transform $animation, opacity $animation;
 
   @media screen and (min-width: 480px) {
-    // width: 450px;
+    width: 450px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 704px;
   }
 
   @media screen and (min-width: 1200px) {
-    // width: 528px;
+    width: 806px;
   }
 }
+
+// .modal-main.is-hidden {
+//   opacity: 0;
+//   visibility: hidden;
+//   transform: translate(-50%, -50%) scale(1.5);
+// }
 
 .img-wrapper {
 }

@@ -62,12 +62,14 @@
 
 .films__info {
   padding-top: 10px;
+  overflow: hidden;
 }
 
 .films__name {
+  width: 100%;
   font-weight: 500;
-  font-size: 12px;
-  line-height: calc(14 / 12);
+  font-size: 18px;
+  line-height: calc(22 / 18);
   text-transform: uppercase;
 
   color: $txt-black-color;

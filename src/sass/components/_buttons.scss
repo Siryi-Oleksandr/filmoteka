@@ -28,6 +28,8 @@
   font-size: 12px;
   line-height: calc(16 / 12);
   border-radius: 5px;
+  border: 1px solid $txt-black-color;
+  outline: none;
   background-color: $bg-white-color;
 
   align-items: center;
@@ -35,14 +37,20 @@
   text-transform: uppercase;
 
   color: $txt-black-color;
+  transition: color $animation, background-color $animation,
+    box-shadow $animation;
 
   &:hover,
   &:focus {
     cursor: pointer;
+    color: $txt-white-color;
+    background-color: $bg-active-color;
+    border: transparent;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+      rgba(255, 108, 0, 0.75) 0px 5px 10px;
   }
 }
 
-.modal-main__btn--active {
-  color: $txt-white-color;
-  background-color: $bg-active-color;
-}
+// .modal-main__btn--active {
+
+// }

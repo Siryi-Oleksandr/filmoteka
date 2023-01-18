@@ -1,7 +1,7 @@
 <!-- Modal window + backdrop -->
 
 <div class="backdrop is-hidden" data-modal>
-  <div class="modal-main is-hidden">
+  <div class="modal-main modal-main--flex is-hidden">
     <button class="btn-close" type="button" data-modal-close>
       <svg class="btn-close__icon" width="30" height="30">
         <use href="./images/sprite.svg#close"></use>
@@ -10,47 +10,47 @@
     <div class="img-wrapper">
       <img src="./images/test.jpg" alt="" class="modal-main__img" />
     </div>
-    <div class="modal-main__info movie-info">
-      <h2 class="movie-info__title">Avatar</h2>
-      <ul class="movie-info__list">
-        <li class="movie-info__item">
-          <span class="movie-info__param">Vote / Votes</span>
-          <span class="movie-info__value"
-            ><span class="movie-info__vote">7.3</span> /
-            <span class="movie-info__votes">1260</span></span
-          >
-        </li>
-        <li class="movie-info__item">
-          <span class="movie-info__param">Popularity</span>
-          <span class="movie-info__value">7.3222</span>
-        </li>
-        <li class="movie-info__item">
-          <span class="movie-info__param">Original Title</span>
-          <span class="movie-info__value movie-info__value--uppercase"
-            >Avatar</span
-          >
-        </li>
-        <li class="movie-info__item">
-          <span class="movie-info__param">Genre</span>
-          <span class="movie-info__value">Western</span>
-        </li>
-      </ul>
-      <h3 class="modal-info__subtitle">ABOUT</h3>
-      <p class="modal-info__desc">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, enim
-        provident. Nesciunt officia, molestias repellat, est excepturi doloribus
-        expedita cum consequuntur qui aliquid quibusdam suscipit, accusamus
-        omnis eaque asperiores vel itaque id delectus odit quae in ex. Repellat
-        blanditiis repellendus, vitae corrupti molestiae vero consequatur ea,
-        ratione laudantium tempora similique?
-      </p>
-    </div>
+    <div class="info-wrapper">
+      <div class="modal-main__info movie-info">
+        <h2 class="movie-info__title">Avatar</h2>
+        <ul class="movie-info__list">
+          <li class="movie-info__item">
+            <span class="movie-info__param">Vote / Votes</span>
+            <span class="movie-info__value"
+              ><span class="movie-info__vote">7.3</span> /
+              <span class="movie-info__votes">1260</span></span
+            >
+          </li>
+          <li class="movie-info__item">
+            <span class="movie-info__param">Popularity</span>
+            <span class="movie-info__value">7.3222</span>
+          </li>
+          <li class="movie-info__item">
+            <span class="movie-info__param">Original Title</span>
+            <span class="movie-info__value movie-info__value--uppercase"
+              >Avatar</span
+            >
+          </li>
+          <li class="movie-info__item">
+            <span class="movie-info__param">Genre</span>
+            <span class="movie-info__value">Western</span>
+          </li>
+        </ul>
+        <h3 class="modal-info__subtitle">ABOUT</h3>
+        <p class="modal-info__desc">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus,
+          enim provident. Nesciunt officia, molestias repellat, est excepturi
+          doloribus expedita cum consequuntur qui aliquid quibusdam suscipit,
+          accusamus omnis eaque asperiores vel itaque id delectus odit quae in
+          ex. Repellat blanditiis repellendus, vitae corrupti molestiae vero
+          consequatur ea, ratione laudantium tempora similique?
+        </p>
+      </div>
 
-    <div class="btn-wrapper">
-      <button class="modal-main__btn modal-main__btn--active" type="button">
-        ADD to watched
-      </button>
-      <button class="modal-main__btn" type="button">ADD to queue</button>
+      <div class="btn-wrapper">
+        <button class="modal-main__btn" type="button">ADD to watched</button>
+        <button class="modal-main__btn" type="button">ADD to queue</button>
+      </div>
     </div>
   </div>
 </div>

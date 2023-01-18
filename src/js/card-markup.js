@@ -30,6 +30,7 @@ export function createMarkupFilmsList(moviesData) {
     .join('');
 }
 
+//  function render to main page first 3 genres
 function trimGenresList(genres) {
   if (genres.length <= 3) {
     return genres.join(', ');

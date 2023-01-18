@@ -1,0 +1,53 @@
+.modal-main {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  padding: 48px 20px 40px;
+  width: 96%;
+
+  border-radius: 4px;
+
+  background-color: $bg-white-color;
+
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  transition: transform $animation, opacity $animation;
+
+  @media screen and (min-width: 480px) {
+    // width: 450px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    // width: 528px;
+  }
+}
+
+.img-wrapper {
+}
+.modal-main__img {
+}
+.modal-main__info {
+}
+.movie-info {
+}
+.movie-info__title {
+}
+.movie-info__list {
+}
+.movie-info__item {
+}
+.movie-info__param {
+}
+.movie-info__value {
+}
+.movie-info__vote {
+}
+.movie-info__votes {
+}
+.modal-info__subtitle {
+}
+.modal-info__desc {
+}
+.modal-main__btn {
+}

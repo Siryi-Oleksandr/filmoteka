@@ -7,7 +7,7 @@ import {
 } from './js/search-servise';
 
 // ! main fetch
-fetchTrendMovies().then(handleTrendMovies).catch(handleError);
+// fetchTrendMovies().then(handleTrendMovies).catch(handleError);
 
 // ! Set functions
 

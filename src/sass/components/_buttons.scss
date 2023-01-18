@@ -1,0 +1,20 @@
+.btn-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: inline-block;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+
+  border: none;
+  background-color: transparent;
+  transition: transform $animation;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
+}

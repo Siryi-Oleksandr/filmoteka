@@ -1,8 +1,5 @@
-<!--
-      |============================
-      | Модальне вікно
-      |============================
-    -->
+<!-- Modal window + backdrop -->
+
 <div class="backdrop is-hidden" data-modal>
   <div class="modal-main is-hidden">
     <button class="btn-close" type="button" data-modal-close>
@@ -29,7 +26,9 @@
         </li>
         <li class="movie-info__item">
           <span class="movie-info__param">Original Title</span>
-          <span class="movie-info__value">Avatar</span>
+          <span class="movie-info__value movie-info__value--uppercase"
+            >Avatar</span
+          >
         </li>
         <li class="movie-info__item">
           <span class="movie-info__param">Genre</span>
@@ -47,7 +46,11 @@
       </p>
     </div>
 
-    <button class="modal-main__btn" type="button">ADD to watched</button>
-    <button class="modal-main__btn" type="button">ADD to queue</button>
+    <div class="btn-wrapper">
+      <button class="modal-main__btn modal-main__btn--active" type="button">
+        ADD to watched
+      </button>
+      <button class="modal-main__btn" type="button">ADD to queue</button>
+    </div>
   </div>
 </div>

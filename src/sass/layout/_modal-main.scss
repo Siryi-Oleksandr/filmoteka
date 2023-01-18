@@ -17,7 +17,7 @@
   background-color: $bg-white-color;
 
   transform: translate(-50%, -50%) scale(1);
-  transition: transform $animation, opacity $animation;
+  transition: transform $animation, opacity $animation, visibility $animation;
 
   @media screen and (min-width: 480px) {
     width: 450px;
@@ -39,30 +39,117 @@
 // }
 
 .img-wrapper {
+  margin-bottom: 20px;
 }
 .modal-main__img {
+  border-radius: 8px;
+
+  @media screen and (min-width: 768px) {
+    width: 264px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 375px;
+  }
 }
 .modal-main__info {
 }
 .movie-info {
 }
 .movie-info__title {
+  margin-bottom: 20px;
+
+  font-weight: 500;
+  font-size: 20px;
+  line-height: calc(23 / 20);
+  text-transform: uppercase;
+
+  color: $txt-black-color;
 }
 .movie-info__list {
+  margin-bottom: 20px;
 }
 .movie-info__item {
+  display: flex;
+  &:not(:last-child) {
+    margin-bottom: 8px;
+  }
 }
 .movie-info__param {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(16 / 12);
+
+  color: $txt-secondary-color;
 }
 .movie-info__value {
+  margin-left: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(14 / 12);
+
+  color: $txt-black-color;
+}
+.movie-info__value--uppercase {
+  text-transform: uppercase;
 }
 .movie-info__vote {
+  margin-right: 5px;
+  display: inline-flex;
+  justify-content: center;
+  width: 36px;
+  height: 16px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(14 / 12);
+
+  //   display: flex;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+  border-radius: 5px;
+
+  color: #ffffff;
+  background-color: #ff6b01;
 }
 .movie-info__votes {
+  margin-left: 5px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(14 / 12);
+  text-transform: uppercase;
+
+  color: $txt-black-color;
 }
 .modal-info__subtitle {
+  margin-bottom: 8px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(16 / 12);
+
+  text-transform: uppercase;
+
+  color: $txt-black-color;
 }
 .modal-info__desc {
+  margin-bottom: 20px;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: calc(20 / 12);
+
+  color: $txt-black-color;
 }
-.modal-main__btn {
+
+.btn-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
 }

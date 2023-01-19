@@ -1,12 +1,14 @@
 import { createMarkupFilmsList } from './js/card-markup';
 import { refs } from './js/refs';
 import {
+  MoviesApiServise,
   fetchTrendMovies,
   baseImgUrl,
   imgPosterSize,
 } from './js/search-servise';
 
 // ! EventListeners
+const movieServise = new MoviesApiServise();
 
 refs.moviesList.addEventListener('click', onFetchCurrentMovie);
 
@@ -17,11 +19,7 @@ async function onFetchCurrentMovie(evt) {
   const selectedMovieId = evt.target.closest('.js-target').dataset.id; // catch user click on li
   console.log(selectedMovieId);
 
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/76600?api_key=d03712107dcdd723f1173c5ee2c0d8c1&language=en-US`
-  );
-  const data = await response.json();
-  console.log(data);
+  movieServise.fetchSelectedMovie(selectedMovieId);
 }
 
 // ! main fetch

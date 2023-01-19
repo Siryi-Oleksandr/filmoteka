@@ -34,8 +34,15 @@ export class MoviesApiServise {
   }
 
   async fetchSelectedMovie(id) {
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/76600?api_key=d03712107dcdd723f1173c5ee2c0d8c1&language=en-US`
-    );
+    const axiosParams = {
+      api_key: API_KEY,
+    };
+
+    const response = await axios.get(`${baseUrl}movie/${id}`, {
+      params: axiosParams,
+    });
+    // const data = await response.json();
+    console.log(response.data.original_title);
+    console.log('id :', response.data.id);
   }
 }

@@ -49,12 +49,7 @@ export function createMarkupSelectedMovie(movieData) {
     about,
   } = movieData;
 
-  return `<button class="btn-close" type="button" data-modal-close>
-      <svg class="btn-close__icon" width="30" height="30">
-        <use href="./images/sprite.svg#close"></use>
-      </svg>
-    </button>
-    <div class="img-wrapper">
+  return `<div class="img-wrapper">
       <img src="${imgUrl}" alt="${name}" class="modal-main__img" />
     </div>
     <div class="info-wrapper">

@@ -10,11 +10,12 @@ import {
   imgPosterSize,
 } from './js/search-servise';
 
-// ! Selected movie
 const movieServise = new MoviesApiServise();
 
 refs.moviesList.addEventListener('click', onFetchCurrentMovie);
+refs.closeModalBtn.addEventListener('click', toggleModal);
 
+// ! Selected movie
 async function onFetchCurrentMovie(evt) {
   if (!evt.target.closest('.js-target')) {
     return;
@@ -114,9 +115,6 @@ function getDataSelectedMovie(data) {
 }
 
 // ! *****************
-
-// refs.openModalBtn.addEventListener('click', toggleModal);
-refs.closeModalBtn.addEventListener('click', toggleModal);
 
 function toggleModal() {
   refs.modal.classList.toggle('is-hidden');

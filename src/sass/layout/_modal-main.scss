@@ -40,7 +40,7 @@
   transform: translate(-50%, -50%) scale(1.5);
 }
 
-.modal-main--flex {
+.modal-container {
   @media screen and (min-width: 768px) {
     display: flex;
     gap: 68px;

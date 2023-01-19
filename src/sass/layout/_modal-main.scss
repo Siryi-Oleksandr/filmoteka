@@ -28,17 +28,17 @@
     width: 704px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 806px;
     padding: 40px 12px;
   }
 }
 
-// .modal-main.is-hidden {
-//   opacity: 0;
-//   visibility: hidden;
-//   transform: translate(-50%, -50%) scale(1.5);
-// }
+.modal-main.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(1.5);
+}
 
 .modal-main--flex {
   @media screen and (min-width: 768px) {
@@ -46,8 +46,8 @@
     gap: 68px;
   }
 
-  @media screen and (min-width: 1200px) {
-    gap: 12px;
+  @media screen and (min-width: 1280px) {
+    gap: 16px;
   }
 }
 
@@ -63,7 +63,7 @@
     width: 264px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 375px;
   }
 }
@@ -73,7 +73,7 @@
     width: 264px;
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 391px;
   }
 }
@@ -97,14 +97,14 @@
     line-height: calc(35 / 30);
   }
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 391px;
   }
 }
 .movie-info__list {
   margin-bottom: 20px;
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 1280px) {
     width: 270px;
   }
 }

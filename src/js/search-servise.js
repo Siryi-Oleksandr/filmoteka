@@ -41,8 +41,7 @@ export class MoviesApiServise {
     const response = await axios.get(`${baseUrl}movie/${id}`, {
       params: axiosParams,
     });
-    // const data = await response.json();
-    console.log(response.data.original_title);
-    console.log('id :', response.data.id);
+
+    return await response.data;
   }
 }

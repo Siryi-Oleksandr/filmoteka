@@ -6,6 +6,24 @@ import {
   imgPosterSize,
 } from './js/search-servise';
 
+// ! EventListeners
+
+refs.moviesList.addEventListener('click', onFetchCurrentMovie);
+
+async function onFetchCurrentMovie(evt) {
+  if (!evt.target.closest('.js-target')) {
+    return;
+  }
+  const selectedMovieId = evt.target.closest('.js-target').dataset.id; // catch user click on li
+  console.log(selectedMovieId);
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/76600?api_key=d03712107dcdd723f1173c5ee2c0d8c1&language=en-US`
+  );
+  const data = await response.json();
+  console.log(data);
+}
+
 // ! main fetch
 fetchTrendMovies().then(handleTrendMovies).catch(handleError);
 

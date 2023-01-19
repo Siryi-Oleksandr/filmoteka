@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const API_KEY = 'd03712107dcdd723f1173c5ee2c0d8c1';
 
 const baseUrl = `https://api.themoviedb.org/3/`;
@@ -22,5 +24,18 @@ export async function fetchTrendMovies() {
     // here should be Notify failure message
   } finally {
     // here should be spinner.close()
+  }
+}
+
+export class MoviesApiServise {
+  constructor() {
+    this.searchMovie = '';
+    this.page = 1;
+  }
+
+  async fetchSelectedMovie(id) {
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/movie/76600?api_key=d03712107dcdd723f1173c5ee2c0d8c1&language=en-US`
+    );
   }
 }

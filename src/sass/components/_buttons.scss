@@ -19,7 +19,7 @@
   }
 }
 
-.modal-main__btn {
+.main-btn {
   display: inline-flex;
   width: 110px;
   height: 44px;
@@ -58,6 +58,34 @@
   }
 }
 
-// .modal-main__btn--active {
+.main-btn--library {
+  width: 130px;
+  color: $txt-white-color;
+  background-color: transparent;
+  border: 1px solid $txt-white-color;
 
-// }
+  @media screen and (min-width: 768px) {
+    width: 152px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    width: 148px;
+  }
+}
+
+.btn-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-wrapper--library {
+  @media screen and (min-width: 768px) {
+    gap: 32px;
+  }
+
+  @media screen and (min-width: 1280px) {
+    gap: 16px;
+  }
+}

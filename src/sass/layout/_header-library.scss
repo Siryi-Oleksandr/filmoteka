@@ -1,0 +1,28 @@
+.header-library {
+  background-color: $bg-header-color;
+  padding-top: 40px;
+  padding-bottom: 44px;
+  height: 230px;
+
+  background-image: url(../images/library-background/lib-bg-sm.png);
+  background-size: cover;
+  background-position: center;
+
+  @media screen and (min-width: 768px) {
+    padding-bottom: 45px;
+    height: 216px;
+    background-image: url(../images/library-background/lib-bg-md.png);
+  }
+
+  @media screen and (min-width: 1280px) {
+    background-image: url(../images/library-background/lib-bg-lg.png);
+  }
+}
+
+.header__nav--library {
+  margin-bottom: 60px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 40px;
+  }
+}

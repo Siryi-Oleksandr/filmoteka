@@ -4,18 +4,18 @@
   padding-bottom: 44px;
   height: 230px;
 
-  background-image: url(../images/header-background/header-background-sm.png);
+  background-image: url(../images/library-background/lib-bg-sm.png);
   background-size: cover;
   background-position: center;
 
   @media screen and (min-width: 768px) {
     padding-bottom: 45px;
     height: 216px;
-    background-image: url(../images/header-background/header-background-md.png);
+    background-image: url(../images/library-background/lib-bg-md.png);
   }
 
   @media screen and (min-width: 1280px) {
-    background-image: url(../images/header-background/header-background-lg.png);
+    background-image: url(../images/library-background/lib-bg-lg.png);
   }
 }
 

@@ -11,8 +11,10 @@ import {
   imgPosterSize,
 } from './js/search-servise';
 import debounce from 'lodash.debounce';
+import { ModalServise } from './js/modal-servise';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
+const modalServise = new ModalServise(); // create new instance Class Modal Service
 
 refs.moviesList.addEventListener('click', onFetchCurrentMovie); // TODO
 
@@ -56,8 +58,7 @@ function handleTrendMovies(data) {
 function handleSelectedMovie(data) {
   const necessaryData = getDataSelectedMovie(data);
   showSelectedMovie(necessaryData);
-  toggleModal();
-  refs.closeModalBtn.addEventListener('click', toggleModal); // TODO
+  modalServise.openModal();
 }
 
 function showTrendMovies(movies) {
@@ -127,10 +128,6 @@ function getTrendMovieGenres(genreIds, allGenres) {
   });
 
   return result;
-}
-
-function toggleModal() {
-  refs.modal.classList.toggle('is-hidden');
 }
 
 function getSelectedMovieGenres(arr) {

@@ -1,6 +1,8 @@
 import {
   createMarkupFilmsList,
   createMarkupSelectedMovie,
+  trimGenresList,
+  createMarkupSearchedList,
 } from './js/card-markup';
 import { refs } from './js/refs';
 import {
@@ -8,6 +10,7 @@ import {
   baseImgUrl,
   imgPosterSize,
 } from './js/search-servise';
+import debounce from 'lodash.debounce';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 
@@ -138,4 +141,51 @@ function handleError() {
   err => console.log(err);
   // here should be Notify message
   console.log('Oops, something went wrong');
+}
+
+// Search reason functionality
+refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
+
+function onSearchInput(event) {
+  const value = event.target.value.trim();
+
+  if (!value) {
+    movieServise
+      .fetchTrendMovies()
+      .then(handleTrendMovies)
+      .catch(handleError)
+      .finally(() => {
+        // here should be spinner.close
+      });
+  }
+
+  movieServise
+    .fetchSearchedMovie(value)
+    .then(({ results }) => {
+      const data = searchHandle(results);
+      const markup = createMarkupSearchedList(data);
+      refs.moviesList.innerHTML = markup;
+    })
+    .catch(handleError)
+    .finally(() => {
+      // here should be spinner.close
+    });
+}
+
+function searchHandle(data) {
+  return data.map(
+    ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
+      const imgUrl = baseImgUrl + imgPosterSize + poster_path;
+      const genres = trimGenresList(genre_ids);
+
+      return {
+        imgUrl: imgUrl,
+        genres: genres,
+        rating: vote_average.toFixed(1),
+        name: title,
+        id: id,
+        year: Number.parseInt(release_date),
+      };
+    }
+  );
 }

@@ -175,7 +175,14 @@
   border: none;
   outline: none;
   border-radius: 8px;
-  cursor: pointer;
+
+  transition: transform $animation;
+
+  &:hover,
+  &:focus {
+    transform: scale(1.15);
+    cursor: pointer;
+  }
 }
 
 .btn-submit__icon {

@@ -145,8 +145,11 @@ function handleError() {
 
 // Search reason functionality
 refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
+refs.searchForm.addEventListener('submit', onSearchInput);
 
 function onSearchInput(event) {
+  event.preventDefault();
+
   const value = event.target.value.trim();
 
   if (!value) {

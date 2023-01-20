@@ -78,10 +78,10 @@
   }
 }
 
-.modal-main__info {
-}
-.movie-info {
-}
+// .modal-main__info {
+// }
+// .movie-info {
+// }
 .movie-info__title {
   margin-bottom: 20px;
 
@@ -183,11 +183,4 @@
   line-height: calc(20 / 12);
 
   color: $txt-black-color;
-}
-
-.btn-wrapper {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
 }

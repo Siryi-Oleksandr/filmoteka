@@ -23,11 +23,25 @@ async function onFetchCurrentMovie(evt) {
 
   const selectedMovieId = evt.target.closest('.js-target').dataset.id; // catch user click on li
 
-  movieServise.fetchSelectedMovie(selectedMovieId).then(handleSelectedMovie);
+  movieServise
+    .fetchSelectedMovie(selectedMovieId)
+    .then(handleSelectedMovie)
+    .catch(handleError)
+    .finally(() => {
+      // here should be spinner.close
+    });
 }
 
 // ! main fetch
-fetchTrendMovies().then(handleTrendMovies).catch(handleError);
+// fetchTrendMovies().then(handleTrendMovies).catch(handleError);
+
+movieServise
+  .fetchTrendMovies()
+  .then(handleTrendMovies)
+  .catch(handleError)
+  .finally(() => {
+    // here should be spinner.close
+  });
 
 // ! Set functions
 
@@ -86,6 +100,7 @@ function findCurrentGenres(genreIds, allGenres) {
 function handleError() {
   err => console.log(err);
   // here should be Notify message
+  console.log('Oops, something went wrong');
 }
 
 function getDataSelectedMovie(data) {
@@ -124,13 +139,6 @@ function showSelectedMovie(movie) {
   const markupSelectedMovie = createMarkupSelectedMovie(movie);
   refs.modalContainer.innerHTML = markupSelectedMovie;
 }
-
-// const q = [
-//   { id: 28, name: 'qwe' },
-//   { id: 36, name: 'sdsd' },
-//   { id: 48, name: 'qxcxcwe' },
-// ];
-// const value = Object.values(q);
 
 function getSelectedMovieGenres(arr) {
   return arr.map(el => el.name).join(', ');

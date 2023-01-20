@@ -5,44 +5,56 @@ import {
 import { refs } from './js/refs';
 import {
   MoviesApiServise,
-  fetchTrendMovies,
   baseImgUrl,
   imgPosterSize,
 } from './js/search-servise';
 
-const movieServise = new MoviesApiServise();
+const movieServise = new MoviesApiServise(); // create new instance Class API Service
 
-refs.moviesList.addEventListener('click', onFetchCurrentMovie);
-refs.closeModalBtn.addEventListener('click', toggleModal);
+refs.moviesList.addEventListener('click', onFetchCurrentMovie); // TODO
+
+// ! main fetch
+
+movieServise
+  .fetchTrendMovies()
+  .then(handleTrendMovies)
+  .catch(handleError)
+  .finally(() => {
+    // here should be spinner.close
+  });
 
 // ! Selected movie
-async function onFetchCurrentMovie(evt) {
+function onFetchCurrentMovie(evt) {
   if (!evt.target.closest('.js-target')) {
     return;
   }
 
   const selectedMovieId = evt.target.closest('.js-target').dataset.id; // catch user click on li
 
-  movieServise.fetchSelectedMovie(selectedMovieId).then(handleSelectedMovie);
+  movieServise
+    .fetchSelectedMovie(selectedMovieId)
+    .then(handleSelectedMovie)
+    .catch(handleError)
+    .finally(() => {
+      // here should be spinner.close
+    });
 }
-
-// ! main fetch
-fetchTrendMovies().then(handleTrendMovies).catch(handleError);
 
 // ! Set functions
-
-function handleSelectedMovie(data) {
-  const necessaryData = getDataSelectedMovie(data);
-  showSelectedMovie(necessaryData);
-  toggleModal();
-}
 
 function handleTrendMovies(data) {
   const { results } = data[0]; // get movies from first promise
   const { genres } = data[1]; // get genres from second promise
 
-  const necessaryData = getNecessaryData(results, genres);
+  const necessaryData = getDataTrendMovies(results, genres);
   showTrendMovies(necessaryData);
+}
+
+function handleSelectedMovie(data) {
+  const necessaryData = getDataSelectedMovie(data);
+  showSelectedMovie(necessaryData);
+  toggleModal();
+  refs.closeModalBtn.addEventListener('click', toggleModal); // TODO
 }
 
 function showTrendMovies(movies) {
@@ -50,12 +62,17 @@ function showTrendMovies(movies) {
   refs.moviesList.innerHTML = markupTrendMovies;
 }
 
+function showSelectedMovie(movie) {
+  const markupSelectedMovie = createMarkupSelectedMovie(movie);
+  refs.modalContainer.innerHTML = markupSelectedMovie;
+}
+
 // function which handle respose data from API and return necessary data
-function getNecessaryData(results, allGenres) {
+function getDataTrendMovies(results, allGenres) {
   return results.map(
     ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
       const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-      const genres = findCurrentGenres(genre_ids, allGenres);
+      const genres = getTrendMovieGenres(genre_ids, allGenres);
 
       return {
         imgUrl: imgUrl,
@@ -67,25 +84,6 @@ function getNecessaryData(results, allGenres) {
       };
     }
   );
-}
-
-function findCurrentGenres(genreIds, allGenres) {
-  const result = [];
-
-  genreIds.find(genreId => {
-    allGenres.forEach(genre => {
-      if (genre.id === genreId) {
-        result.push(genre.name);
-      }
-    });
-  });
-
-  return result;
-}
-
-function handleError() {
-  err => console.log(err);
-  // here should be Notify message
 }
 
 function getDataSelectedMovie(data) {
@@ -114,24 +112,30 @@ function getDataSelectedMovie(data) {
   };
 }
 
-// ! *****************
+function getTrendMovieGenres(genreIds, allGenres) {
+  const result = [];
+
+  genreIds.find(genreId => {
+    allGenres.forEach(genre => {
+      if (genre.id === genreId) {
+        result.push(genre.name);
+      }
+    });
+  });
+
+  return result;
+}
 
 function toggleModal() {
   refs.modal.classList.toggle('is-hidden');
 }
 
-function showSelectedMovie(movie) {
-  const markupSelectedMovie = createMarkupSelectedMovie(movie);
-  refs.modalContainer.innerHTML = markupSelectedMovie;
-}
-
-// const q = [
-//   { id: 28, name: 'qwe' },
-//   { id: 36, name: 'sdsd' },
-//   { id: 48, name: 'qxcxcwe' },
-// ];
-// const value = Object.values(q);
-
 function getSelectedMovieGenres(arr) {
   return arr.map(el => el.name).join(', ');
+}
+
+function handleError() {
+  err => console.log(err);
+  // here should be Notify message
+  console.log('Oops, something went wrong');
 }

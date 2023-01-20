@@ -1,45 +1,39 @@
 import axios from 'axios';
 
-const API_KEY = 'd03712107dcdd723f1173c5ee2c0d8c1';
+// const API_KEY = 'd03712107dcdd723f1173c5ee2c0d8c1';
+// const baseUrl = `https://api.themoviedb.org/3/`;
 
-const baseUrl = `https://api.themoviedb.org/3/`;
 export const baseImgUrl = `https://image.tmdb.org/t/p/`;
 export const imgPosterSize = `w500`;
 
-export async function fetchTrendMovies() {
-  try {
-    const responseMovies = await fetch(
-      `${baseUrl}trending/movie/day?api_key=${API_KEY}`
-    );
-    const movies = await responseMovies.json();
-
-    const responseGenres = await fetch(
-      `${baseUrl}genre/movie/list?api_key=${API_KEY}&language=en-US`
-    );
-    const genres = await responseGenres.json();
-
-    return [movies, genres]; // return in index.js two promises
-  } catch (error) {
-    console.error('Error', error.message);
-    // here should be Notify failure message
-  } finally {
-    // here should be spinner.close()
-  }
-}
-
 export class MoviesApiServise {
+  #API_KEY;
   constructor() {
+    this.#API_KEY = 'd03712107dcdd723f1173c5ee2c0d8c1';
+    this.baseUrl = `https://api.themoviedb.org/3/`;
+    this.axiosParams = {
+      api_key: this.#API_KEY,
+    };
     this.searchMovie = '';
     this.page = 1;
   }
 
-  async fetchSelectedMovie(id) {
-    const axiosParams = {
-      api_key: API_KEY,
-    };
+  async fetchTrendMovies() {
+    const responseMovies = await axios.get(
+      `${this.baseUrl}trending/movie/day?api_key=${this.#API_KEY}`
+    );
 
-    const response = await axios.get(`${baseUrl}movie/${id}`, {
-      params: axiosParams,
+    const responseGenres = await axios.get(
+      `${this.baseUrl}genre/movie/list?api_key=${this.#API_KEY}&language=en-US`
+    );
+
+    return [responseMovies.data, responseGenres.data]; // return in index.js two promises
+    // in this methot we don't use construction try...catch becouse we handle result in outer code and use there then...catch...finally
+  }
+
+  async fetchSelectedMovie(id) {
+    const response = await axios.get(`${this.baseUrl}movie/${id}`, {
+      params: this.axiosParams,
     });
 
     return await response.data;

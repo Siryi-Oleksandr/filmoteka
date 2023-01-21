@@ -142,13 +142,12 @@ function handleError() {
 
 // Search reason functionality
 refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
-// refs.searchForm.addEventListener('submit', onSearchInput);
+refs.searchForm.addEventListener('submit', onSearchInput);
 
 function onSearchInput(event) {
-  // event.preventDefault();
+  event.preventDefault();
 
-  const value = event.target.value;
-  console.log(value);
+  const value = event.target.value.trim();
 
   if (!value) {
     movieServise

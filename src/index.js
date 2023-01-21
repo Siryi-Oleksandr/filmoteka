@@ -159,7 +159,7 @@ function onSearchInput(event) {
       });
   }
 
-  movieServise
+  return movieServise
     .fetchSearchedMovie(value)
     .then(({ results }) => {
       const data = searchHandle(results);

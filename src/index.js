@@ -189,3 +189,7 @@ function searchHandle(data) {
     }
   );
 }
+
+refs.testButton.addEventListener('click', () => {
+  console.log('Hello world!');
+});

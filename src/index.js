@@ -142,12 +142,13 @@ function handleError() {
 
 // Search reason functionality
 refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
-refs.searchForm.addEventListener('submit', onSearchInput);
+// refs.searchForm.addEventListener('submit', onSearchInput);
 
 function onSearchInput(event) {
-  event.preventDefault();
+  // event.preventDefault();
 
-  const value = event.target.value.trim();
+  const value = event.target.value;
+  console.log(value);
 
   if (!value) {
     movieServise
@@ -159,7 +160,7 @@ function onSearchInput(event) {
       });
   }
 
-  movieServise
+  return movieServise
     .fetchSearchedMovie(value)
     .then(({ results }) => {
       const data = searchHandle(results);

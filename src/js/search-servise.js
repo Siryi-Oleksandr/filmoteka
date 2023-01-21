@@ -49,4 +49,22 @@ export class MoviesApiServise {
 
     return await response.data;
   }
+
+  async fetchQueueMovies(ids) {
+    // 1. Створюємо масив промісів
+    const arrayOfPromises = ids.map(async id => {
+      return await axios.get(`${this.baseUrl}movie/${id}`, {
+        params: this.axiosParams,
+      });
+      // return response.json();
+    });
+
+    // 2. Запускаємо усі проміси паралельно і чекаємо на їх завершення
+    const movies = await Promise.all(arrayOfPromises);
+    console.log(movies);
+
+    // this.selectedMovieId = id;
+
+    // return await response.data;
+  }
 }

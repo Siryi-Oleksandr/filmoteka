@@ -1,10 +1,25 @@
-// const watchedMovies
-
 export class LocalStorageService {
+  constructor() {
+    this.watchedKey = 'watchedMovies';
+    this.queueKey = 'queueMovies';
+  }
+
   save(key, value) {
     try {
-      const serializedState = JSON.stringify(value);
-      localStorage.setItem(key, serializedState);
+      let savedData = localStorage.getItem(key);
+      if (savedData) {
+        let movieIds = JSON.parse(savedData);
+        const isUniqueId = !movieIds.includes(value);
+        if (isUniqueId) {
+          movieIds.push(value);
+          localStorage.setItem(key, JSON.stringify(movieIds));
+        } else {
+          console.log('This film in your collection');
+          // here should be Notify message like 'This film in your collection'
+        }
+      } else {
+        localStorage.setItem(key, JSON.stringify([value]));
+      }
     } catch (error) {
       console.error('Set state error: ', error.message);
     }
@@ -12,8 +27,8 @@ export class LocalStorageService {
 
   load(key) {
     try {
-      const serializedState = localStorage.getItem(key);
-      return serializedState === null ? undefined : JSON.parse(serializedState);
+      const savedData = localStorage.getItem(key);
+      return savedData === null ? undefined : JSON.parse(savedData);
     } catch (error) {
       console.error('Get state error: ', error.message);
     }

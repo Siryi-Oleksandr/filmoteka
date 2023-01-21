@@ -12,11 +12,21 @@ import {
 } from './js/search-servise';
 import debounce from 'lodash.debounce';
 import { ModalServise } from './js/modal-servise';
+import { LocalStorageService } from './js/localStorage-service';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service
 
 refs.moviesList.addEventListener('click', onFetchCurrentMovie); // TODO
+
+//  !!!!!!!!!!!!!!!!! START !!!!!!!!!!!!!!!!!!!!!!!
+const localStorage = new LocalStorageService();
+
+function onAddToQueue(key, movie) {
+  console.log(refs.btnAddToQueue);
+}
+
+//  !!!!!!!!!!!!!!!!! END !!!!!!!!!!!!!!!!!!!!!!!!!
 
 // ! main fetch
 

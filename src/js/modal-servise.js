@@ -13,12 +13,10 @@ export class ModalServise {
 
     // ************
 
-    refs.btnAddToQueue.addEventListener('click', () => {
-      console.log(2);
-    });
-    refs.btnAddToWatched.addEventListener('click', () => {
-      console.log(3);
-    });
+    // refs.btnAddToQueue.addEventListener('click', onAddToQueue);
+    // refs.btnAddToWatched.addEventListener('click', () => {
+    //   console.log(3);
+    // });
   }
 
   closeModal(evt) {

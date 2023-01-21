@@ -22,8 +22,17 @@ refs.moviesList.addEventListener('click', onFetchCurrentMovie); // TODO
 //  !!!!!!!!!!!!!!!!! START !!!!!!!!!!!!!!!!!!!!!!!
 const localStorage = new LocalStorageService();
 
-function onAddToQueue(key, movie) {
-  console.log(refs.btnAddToQueue);
+refs.modalContainer.addEventListener('click', onAddToQueue);
+
+function onAddToQueue(evt) {
+  const isBtnAddToQueue = evt.target.name === 'add-to-queue';
+  const isBtnAddToWatched = evt.target.name === 'add-to-watched';
+  if (isBtnAddToQueue) {
+    console.log('isBtnAddToQueue');
+  }
+  if (isBtnAddToWatched) {
+    console.log('isBtnAddToWatched');
+  }
 }
 
 //  !!!!!!!!!!!!!!!!! END !!!!!!!!!!!!!!!!!!!!!!!!!

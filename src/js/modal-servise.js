@@ -12,14 +12,13 @@ export class ModalServise {
     window.addEventListener('keydown', this.closeModal);
 
     // ************
-    console.log(refs.searchForm);
 
-    // refs.btnAddToQueue.addEventListener('click', () => {
-    //   console.log(2);
-    // });
-    // refs.btnAddToWatched.addEventListener('click', () => {
-    //   console.log(3);
-    // });
+    refs.btnAddToQueue.addEventListener('click', () => {
+      console.log(2);
+    });
+    refs.btnAddToWatched.addEventListener('click', () => {
+      console.log(3);
+    });
   }
 
   closeModal(evt) {

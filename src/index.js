@@ -12,11 +12,15 @@ import {
 } from './js/search-servise';
 import debounce from 'lodash.debounce';
 import { ModalServise } from './js/modal-servise';
+import { LocalStorageService } from './js/localStorage-service';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service
+const localStorage = new LocalStorageService(); // create new instance Class LocalStorage Service
 
-refs.moviesList.addEventListener('click', onFetchCurrentMovie); // TODO
+// ! add listeners
+refs.moviesList.addEventListener('click', onFetchCurrentMovie);
+refs.modalContainer.addEventListener('click', onAddToLibrary);
 
 // ! main fetch
 
@@ -134,8 +138,8 @@ function getSelectedMovieGenres(arr) {
   return arr.map(el => el.name).join(', ');
 }
 
-function handleError() {
-  err => console.log(err);
+function handleError(err) {
+  console.error(err.message);
   // here should be Notify message
   console.log('Oops, something went wrong');
 }
@@ -190,6 +194,21 @@ function searchHandle(data) {
   );
 }
 
+
+function onAddToLibrary(evt) {
+  const isBtnAddToQueue = evt.target.name === 'add-to-queue';
+  const isBtnAddToWatched = evt.target.name === 'add-to-watched';
+  if (isBtnAddToQueue) {
+    const movieToQueue = movieServise.selectedMovieId;
+    localStorage.save(localStorage.queueKey, movieToQueue);
+  }
+  if (isBtnAddToWatched) {
+    const movieToWatched = movieServise.selectedMovieId;
+    localStorage.save(localStorage.watchedKey, movieToWatched);
+  }
+}
+
 refs.testButton.addEventListener('click', () => {
   console.log('Hello world!');
 });
+

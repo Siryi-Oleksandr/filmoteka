@@ -80,12 +80,17 @@ export function createMarkupSelectedMovie(movieData) {
         </ul>
         <h3 class="modal-info__subtitle">ABOUT</h3>
         <p class="modal-info__desc">${about}</p>
-      </div>
 
-      <div class="btn-wrapper">
-        <button class="main-btn main-btn--modal" type="button">ADD to watched</button>
-        <button class="main-btn main-btn--modal" type="button">ADD to queue</button>
+        <div class="btn-wrapper">
+      <button class="main-btn main-btn--modal" name="add-to-watched" type="button">
+        ADD to watched
+      </button>
+      <button class="main-btn main-btn--modal" name="add-to-queue" type="button">
+        ADD to queue
+      </button>
+    </div>
       </div>
+      
     </div>`;
 }
 

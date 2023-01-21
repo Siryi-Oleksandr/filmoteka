@@ -16,6 +16,7 @@ export class MoviesApiServise {
     };
     this.searchMovie = '';
     this.page = 1;
+    this.selectedMovieId = null;
   }
 
   async fetchTrendMovies() {
@@ -35,6 +36,8 @@ export class MoviesApiServise {
     const response = await axios.get(`${this.baseUrl}movie/${id}`, {
       params: this.axiosParams,
     });
+
+    this.selectedMovieId = id;
 
     return await response.data;
   }

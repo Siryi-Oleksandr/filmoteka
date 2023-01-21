@@ -163,7 +163,7 @@ function onSearchInput(event) {
       });
   }
 
-  movieServise
+  return movieServise
     .fetchSearchedMovie(value)
     .then(({ results }) => {
       const data = searchHandle(results);
@@ -194,6 +194,7 @@ function searchHandle(data) {
   );
 }
 
+
 function onAddToLibrary(evt) {
   const isBtnAddToQueue = evt.target.name === 'add-to-queue';
   const isBtnAddToWatched = evt.target.name === 'add-to-watched';
@@ -206,3 +207,8 @@ function onAddToLibrary(evt) {
     localStorage.save(localStorage.watchedKey, movieToWatched);
   }
 }
+
+refs.testButton.addEventListener('click', () => {
+  console.log('Hello world!');
+});
+

@@ -146,55 +146,55 @@ function handleError(err) {
   console.log('Oops, something went wrong main page');
 }
 
-// Search reason functionality
-refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
-refs.searchForm.addEventListener('submit', onSearchInput);
+// // Search reason functionality
+// refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
+// refs.searchForm.addEventListener('submit', onSearchInput);
 
-function onSearchInput(event) {
-  event.preventDefault();
+// function onSearchInput(event) {
+//   event.preventDefault();
 
-  const value = event.target.value.trim();
+//   const value = event.target.value.trim();
 
-  if (!value) {
-    movieServise
-      .fetchTrendMovies()
-      .then(handleTrendMovies)
-      .catch(handleError)
-      .finally(() => {
-        // here should be spinner.close
-      });
-  }
+//   if (!value) {
+//     movieServise
+//       .fetchTrendMovies()
+//       .then(handleTrendMovies)
+//       .catch(handleError)
+//       .finally(() => {
+//         // here should be spinner.close
+//       });
+//   }
 
-  return movieServise
-    .fetchSearchedMovie(value)
-    .then(({ results }) => {
-      const data = searchHandle(results);
-      const markup = createMarkupSearchedList(data);
-      refs.moviesList.innerHTML = markup;
-    })
-    .catch(handleError)
-    .finally(() => {
-      // here should be spinner.close
-    });
-}
+//   return movieServise
+//     .fetchSearchedMovie(value)
+//     .then(({ results }) => {
+//       const data = searchHandle(results);
+//       const markup = createMarkupSearchedList(data);
+//       refs.moviesList.innerHTML = markup;
+//     })
+//     .catch(handleError)
+//     .finally(() => {
+//       // here should be spinner.close
+//     });
+// }
 
-function searchHandle(data) {
-  return data.map(
-    ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
-      const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-      const genres = trimGenresList(genre_ids);
+// function searchHandle(data) {
+//   return data.map(
+//     ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
+//       const imgUrl = baseImgUrl + imgPosterSize + poster_path;
+//       const genres = trimGenresList(genre_ids);
 
-      return {
-        imgUrl: imgUrl,
-        genres: genres,
-        rating: vote_average.toFixed(1),
-        name: title,
-        id: id,
-        year: Number.parseInt(release_date),
-      };
-    }
-  );
-}
+//       return {
+//         imgUrl: imgUrl,
+//         genres: genres,
+//         rating: vote_average.toFixed(1),
+//         name: title,
+//         id: id,
+//         year: Number.parseInt(release_date),
+//       };
+//     }
+//   );
+// }
 
 function onAddToLibrary(evt) {
   const isBtnAddToQueue = evt.target.name === 'add-to-queue';
@@ -208,7 +208,3 @@ function onAddToLibrary(evt) {
     localStorage.save(localStorage.watchedKey, movieToWatched);
   }
 }
-
-refs.testButton.addEventListener('click', () => {
-  console.log('Hello world!');
-});

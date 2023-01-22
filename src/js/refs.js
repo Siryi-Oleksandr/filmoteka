@@ -11,6 +11,4 @@ export const refs = {
 
   // Search input in Header
   searchForm: document.querySelector('.header__form'),
-
-  testButton: document.querySelector('.js-test'),
 };

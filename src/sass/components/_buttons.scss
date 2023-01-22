@@ -44,7 +44,7 @@
   &:focus {
     cursor: pointer;
     color: $txt-white-color;
-    background-color: $bg-active-color;
+    background-color: $bg-active-color-alpha;
     border: transparent;
     box-shadow: $btn-shadow;
   }
@@ -88,4 +88,8 @@
   @media screen and (min-width: 1280px) {
     gap: 16px;
   }
+}
+
+.main-btn--library.is-active {
+  background-color: $bg-active-color;
 }

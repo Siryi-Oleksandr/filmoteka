@@ -1,5 +1,6 @@
 import {
   createMarkupFilmsList,
+  createMarkupLibraryList,
   createMarkupSelectedMovie,
   trimGenresList,
   createMarkupSearchedList,
@@ -31,19 +32,17 @@ movieServise
   });
 
 function handleQueueMovie(movies) {
-  movies.forEach(movie => {
-    console.log('LIB DATA', movie.data);
-    const necessaryData = dataService.getDataSelectedMovie(movie.data);
-    console.log('necessaryData', necessaryData);
-    // showQueueMovies(necessaryData);
-
-    // showSelectedMovie(necessaryData);
+  const necessaryData = movies.map(({ data }) => {
+    return dataService.getDataSelectedMovie(data);
   });
+  console.log('necessaryData', necessaryData);
+
+  showQueueMovies(necessaryData);
 }
 
 function showQueueMovies(movies) {
-  const markupTrendMovies = createMarkupFilmsList(movies);
-  refs.moviesList.innerHTML = markupTrendMovies;
+  const markupQueueMovies = createMarkupLibraryList(movies); // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  refs.libraryList.innerHTML = markupQueueMovies;
 }
 
 function handleError(err) {

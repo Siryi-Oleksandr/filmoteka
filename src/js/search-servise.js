@@ -47,8 +47,8 @@ export class MoviesApiServise {
   //     `${this.baseUrl}search/movie/?api_key=${this.#API_KEY}&query=${id}`
   //   );
 
-    return await response.data;
-  }
+  //   return await response.data;
+  // }
 
   async fetchQueueMovies(ids) {
     // 1. Create Promises array

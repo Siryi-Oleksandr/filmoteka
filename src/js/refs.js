@@ -11,4 +11,8 @@ export const refs = {
 
   // Search input in Header
   searchForm: document.querySelector('.header__form'),
+
+  // spiner
+  backdropSpinner: document.querySelector('[data-load]'),
+  spinner: document.querySelector('.js-spinner'),
 };

@@ -13,6 +13,7 @@ import {
 import debounce from 'lodash.debounce';
 import { ModalServise } from './js/modal-servise';
 import { LocalStorageService } from './js/localStorage-service';
+import { spinnerPlay, spinnerStop } from './js/spinner';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service
@@ -23,13 +24,13 @@ refs.moviesList.addEventListener('click', onFetchCurrentMovie);
 refs.modalContainer.addEventListener('click', onAddToLibrary);
 
 // ! main fetch
-
+spinnerPlay();
 movieServise
   .fetchTrendMovies()
   .then(handleTrendMovies)
   .catch(handleError)
   .finally(() => {
-    // here should be spinner.close
+    spinnerStop();
   });
 
 // ! Selected movie
@@ -39,13 +40,13 @@ function onFetchCurrentMovie(evt) {
   }
 
   const selectedMovieId = evt.target.closest('.js-target').dataset.id; // catch user click on li
-
+  spinnerPlay();
   movieServise
     .fetchSelectedMovie(selectedMovieId)
     .then(handleSelectedMovie)
     .catch(handleError)
     .finally(() => {
-      // here should be spinner.close
+      spinnerStop();
     });
 }
 

@@ -1,9 +1,4 @@
-import {
-  createMarkupFilmsList,
-  createMarkupLibraryList,
-  createMarkupSelectedMovie,
-  createMarkupSearchedList,
-} from './js/card-markup';
+import { createMarkupLibraryList } from './js/card-markup';
 import { refs } from './js/refs';
 import { MoviesApiServise } from './js/search-servise';
 import { ModalServise } from './js/modal-servise';
@@ -21,6 +16,7 @@ const watchedMovieIds = localStorage.load(localStorage.watchedKey);
 refs.btnQueue.addEventListener('click', onShowQueueMovies);
 refs.btnWatched.addEventListener('click', onShowWatchedMovies);
 
+// ! Default Render Library Page
 movieServise
   .fetchQueueMovies(queueMovieIds)
   .then(handleQueueMovie)

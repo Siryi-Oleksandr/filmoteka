@@ -8,7 +8,7 @@ export class DataService {
     return results.map(
       ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
         const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-        const genres = getTrendMovieGenres(genre_ids, allGenres);
+        const genres = genresService.getTrendMovieGenres(genre_ids, allGenres);
 
         return {
           imgUrl: imgUrl,
@@ -49,33 +49,4 @@ export class DataService {
       year: Number.parseInt(release_date),
     };
   }
-
-  //   getDataLibraryMovie(data) {
-  //     console.log('data', data);
-
-  //     return data.map(
-  //       ({
-  //         poster_path,
-  //         genres,
-  //         vote_average,
-  //         vote_count,
-  //         popularity,
-  //         title,
-  //         original_title,
-  //         overview,
-  //         id,
-  //       }) => {
-  //         const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-
-  //         return {
-  //           imgUrl: imgUrl,
-  //           genres: genresService.getSelectedMovieGenres(genres),
-  //           rating: vote_average.toFixed(1),
-  //           name: title,
-  //           id: id,
-  //           year: Number.parseInt(release_date),
-  //         };
-  //       }
-  //     );
-  //   }
 }

@@ -44,7 +44,7 @@
   &:focus {
     cursor: pointer;
     color: $txt-white-color;
-    background-color: $bg-active-color-alpha;
+    background-color: $bg-active-color;
     border: transparent;
     box-shadow: $btn-shadow;
   }
@@ -70,6 +70,11 @@
 
   @media screen and (min-width: 1280px) {
     width: 148px;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $bg-active-color-alpha;
   }
 }
 

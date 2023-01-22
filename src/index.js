@@ -94,6 +94,7 @@ function getDataTrendMovies(results, allGenres) {
   );
 }
 
+//  ? ******************************
 function getDataSelectedMovie(data) {
   const {
     poster_path,
@@ -134,6 +135,7 @@ function getTrendMovieGenres(genreIds, allGenres) {
   return result;
 }
 
+//  ? ******************************
 function getSelectedMovieGenres(arr) {
   return arr.map(el => el.name).join(', ');
 }
@@ -141,7 +143,7 @@ function getSelectedMovieGenres(arr) {
 function handleError(err) {
   console.error(err.message);
   // here should be Notify message
-  console.log('Oops, something went wrong');
+  console.log('Oops, something went wrong main page');
 }
 
 // Search reason functionality
@@ -194,7 +196,6 @@ function searchHandle(data) {
   );
 }
 
-
 function onAddToLibrary(evt) {
   const isBtnAddToQueue = evt.target.name === 'add-to-queue';
   const isBtnAddToWatched = evt.target.name === 'add-to-watched';
@@ -211,4 +212,3 @@ function onAddToLibrary(evt) {
 refs.testButton.addEventListener('click', () => {
   console.log('Hello world!');
 });
-

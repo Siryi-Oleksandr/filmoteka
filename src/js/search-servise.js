@@ -42,11 +42,11 @@ export class MoviesApiServise {
     return await response.data;
   }
 
-  async fetchSearchedMovie(id) {
-    const response = await axios.get(
-      `${this.baseUrl}search/movie/?api_key=${this.#API_KEY}&query=${id}`
-    );
+  // async fetchSearchedMovie(id) {
+  //   const response = await axios.get(
+  //     `${this.baseUrl}search/movie/?api_key=${this.#API_KEY}&query=${id}`
+  //   );
 
-    return await response.data;
-  }
+  //   return await response.data;
+  // }
 }

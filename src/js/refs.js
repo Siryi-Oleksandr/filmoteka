@@ -1,5 +1,6 @@
 export const refs = {
   moviesList: document.querySelector('.js-films-list'),
+  libraryList: document.querySelector('.js-library-list'),
 
   // Modal elements
   modalContainer: document.querySelector('.js-modal-container'),

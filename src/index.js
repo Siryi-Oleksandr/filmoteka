@@ -94,6 +94,7 @@ function getDataTrendMovies(results, allGenres) {
   );
 }
 
+//  ? ******************************
 function getDataSelectedMovie(data) {
   const {
     poster_path,
@@ -134,6 +135,7 @@ function getTrendMovieGenres(genreIds, allGenres) {
   return result;
 }
 
+//  ? ******************************
 function getSelectedMovieGenres(arr) {
   return arr.map(el => el.name).join(', ');
 }
@@ -141,7 +143,7 @@ function getSelectedMovieGenres(arr) {
 function handleError(err) {
   console.error(err.message);
   // here should be Notify message
-  console.log('Oops, something went wrong');
+  console.log('Oops, something went wrong main page');
 }
 
 // // Search reason functionality

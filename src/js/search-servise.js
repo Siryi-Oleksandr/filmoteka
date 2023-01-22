@@ -49,4 +49,17 @@ export class MoviesApiServise {
 
   //   return await response.data;
   // }
+
+  async fetchQueueMovies(ids) {
+    // 1. Create Promises array
+    const arrayOfPromises = ids.map(async id => {
+      return await axios.get(`${this.baseUrl}movie/${id}`, {
+        params: this.axiosParams,
+      });
+    });
+
+    // 2. Run all Promises paralel and wait their executing
+    const movies = await Promise.all(arrayOfPromises);
+    return movies;
+  }
 }

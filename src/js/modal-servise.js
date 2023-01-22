@@ -6,7 +6,6 @@ export class ModalServise {
   openModal() {
     refs.modal.classList.remove('is-hidden');
 
-    // add listeners
     refs.modal.addEventListener('click', this.closeModal);
     refs.closeModalBtn.addEventListener('click', this.closeModal);
     window.addEventListener('keydown', this.closeModal);

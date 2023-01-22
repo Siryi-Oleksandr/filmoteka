@@ -21,7 +21,7 @@ const localStorage = new LocalStorageService(); // create new instance Class Loc
 const dataService = new DataService(); // create new instance Class Data Service
 
 const queueMovieIds = localStorage.load(localStorage.queueKey);
-console.log(queueMovieIds);
+const watchedMovieIds = localStorage.load(localStorage.watchedKey);
 
 movieServise
   .fetchQueueMovies(queueMovieIds)
@@ -35,13 +35,11 @@ function handleQueueMovie(movies) {
   const necessaryData = movies.map(({ data }) => {
     return dataService.getDataSelectedMovie(data);
   });
-  console.log('necessaryData', necessaryData);
-
   showQueueMovies(necessaryData);
 }
 
 function showQueueMovies(movies) {
-  const markupQueueMovies = createMarkupLibraryList(movies); // TODO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  const markupQueueMovies = createMarkupLibraryList(movies);
   refs.libraryList.innerHTML = markupQueueMovies;
 }
 

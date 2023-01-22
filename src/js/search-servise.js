@@ -60,8 +60,6 @@ export class MoviesApiServise {
 
     // 2. Run all Promises paralel and wait their executing
     const movies = await Promise.all(arrayOfPromises);
-    console.log('SServ', movies);
-
     return movies;
   }
 }

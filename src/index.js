@@ -35,7 +35,7 @@ function onSearchSubmit(event) {
   const searchValue = event.currentTarget.elements.query.value;
   console.log(searchValue);
 
-  searchMoviesAPI.fetchSearchedMovie(searchValue);
+  // searchMoviesAPI.fetchSearchedMovie(searchValue);
 }
 
 // ! main fetch

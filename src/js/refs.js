@@ -11,8 +11,14 @@ export const refs = {
   // Search input in Header
   searchForm: document.querySelector('.header__form'),
 
+
+  // spiner
+  backdropSpinner: document.querySelector('[data-load]'),
+  spinner: document.querySelector('.js-spinner'),
+
   // Library page
   libraryList: document.querySelector('.js-library-list'),
   btnQueue: document.querySelector('.js-btn-queue'),
   btnWatched: document.querySelector('.js-btn-watched'),
+
 };

@@ -1,6 +1,5 @@
 export const refs = {
   moviesList: document.querySelector('.js-films-list'),
-  libraryList: document.querySelector('.js-library-list'),
 
   // Modal elements
   modalContainer: document.querySelector('.js-modal-container'),
@@ -11,4 +10,9 @@ export const refs = {
 
   // Search input in Header
   searchForm: document.querySelector('.header__form'),
+
+  // Library page
+  libraryList: document.querySelector('.js-library-list'),
+  btnQueue: document.querySelector('.js-btn-queue'),
+  btnWatched: document.querySelector('.js-btn-watched'),
 };

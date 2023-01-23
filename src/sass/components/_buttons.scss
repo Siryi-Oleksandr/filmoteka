@@ -71,6 +71,11 @@
   @media screen and (min-width: 1280px) {
     width: 148px;
   }
+
+  &:hover,
+  &:focus {
+    background-color: $bg-active-color-alpha;
+  }
 }
 
 .btn-wrapper {
@@ -88,4 +93,8 @@
   @media screen and (min-width: 1280px) {
     gap: 16px;
   }
+}
+
+.main-btn--library.is-active {
+  background-color: $bg-active-color;
 }

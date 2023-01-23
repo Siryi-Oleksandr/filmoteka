@@ -42,13 +42,15 @@ export class MoviesApiServise {
     return await response.data;
   }
 
-  // async fetchSearchedMovie(id) {
-  //   const response = await axios.get(
-  //     `${this.baseUrl}search/movie/?api_key=${this.#API_KEY}&query=${id}`
-  //   );
+  async fetchSearchedMovie(searchMovie) {
+    const response = await axios.get(
+      `${this.baseUrl}search/movie/?api_key=${
+        this.#API_KEY
+      }&query=${searchMovie}`
+    );
 
-  //   return await response.data;
-  // }
+    return response.data;
+  }
 
   async fetchQueueMovies(ids) {
     // 1. Create Promises array

@@ -14,6 +14,6 @@ export class GenresService {
   }
 
   getSelectedMovieGenres(arr) {
-    return arr.map(el => el.name).join(', ');
+    return arr.map(el => el.name);
   }
 }

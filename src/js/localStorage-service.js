@@ -28,7 +28,7 @@ export class LocalStorageService {
   load(key) {
     try {
       const savedData = localStorage.getItem(key);
-      return savedData === null ? undefined : JSON.parse(savedData);
+      return savedData === null ? [] : JSON.parse(savedData);
     } catch (error) {
       console.error('Get state error: ', error.message);
     }

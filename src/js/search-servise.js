@@ -42,16 +42,6 @@ export class MoviesApiServise {
     return await response.data;
   }
 
-  async fetchSearchedMovie(searchMovie) {
-    const response = await axios.get(
-      `${this.baseUrl}search/movie/?api_key=${
-        this.#API_KEY
-      }&query=${searchMovie}`
-    );
-
-    return response.data;
-  }
-
   async fetchQueueMovies(ids) {
     // 1. Create Promises array
     const arrayOfPromises = ids.map(async id => {

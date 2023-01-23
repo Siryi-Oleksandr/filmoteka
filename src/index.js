@@ -1,7 +1,6 @@
 import {
   createMarkupFilmsList,
   createMarkupSelectedMovie,
-  trimGenresList,
   createMarkupSearchedList,
 } from './js/card-markup';
 import { refs } from './js/refs';
@@ -10,20 +9,34 @@ import {
   baseImgUrl,
   imgPosterSize,
 } from './js/search-servise';
-import debounce from 'lodash.debounce';
+// import debounce from 'lodash.debounce';
 import { ModalServise } from './js/modal-servise';
 import { LocalStorageService } from './js/localStorage-service';
 import { DataService } from './js/data-service';
 import { spinnerPlay, spinnerStop } from './js/spinner';
+import { onSearchSubmit } from './js/searchFunctions';
+import { SearchMoviesAPI } from './js/searchFetch';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service
 const localStorage = new LocalStorageService(); // create new instance Class LocalStorage Service
 const dataService = new DataService(); // create new instance Class Data Service
+const searchMoviesAPI = new SearchMoviesAPI(); // search functionality
 
 // ! add listeners
 refs.moviesList.addEventListener('click', onFetchCurrentMovie);
 refs.modalContainer.addEventListener('click', onAddToLibrary);
+
+refs.searchForm.addEventListener('submit', onSearchSubmit);
+
+function onSearchSubmit(event) {
+  event.preventDefault();
+
+  const searchValue = event.currentTarget.elements.query.value;
+  console.log(searchValue);
+
+  searchMoviesAPI.fetchSearchedMovie(searchValue);
+}
 
 // ! main fetch
 spinnerPlay();
@@ -96,64 +109,3 @@ function handleError(err) {
   // here should be Notify message
   console.log('Oops, something went wrong main page');
 }
-
-// Search reason functionality
-// refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
-// refs.searchForm.addEventListener('submit', onSearchSubmit);
-
-// function onSearchSubmit(event) {
-//   event.preventDefault();
-
-//   // const value = event.currentTarget.elements.query.value;
-//   const value = event.target.value;
-
-//   console.dir(value);
-
-//   if (!value) {
-//     movieServise
-//       .fetchTrendMovies()
-//       .then(handleTrendMovies)
-//       .catch(handleError)
-//       .finally(() => {
-//         // here should be spinner.close
-//       });
-//   }
-
-//   movieServise
-//     .fetchSearchedMovie(value)
-//     .then(data => console.log(data))
-//     .catch(handleError)
-//     .finally(() => {
-//       // here should be spinner.close
-//     });
-
-// return movieServise
-//   .fetchSearchedMovie(value)
-//   .then(({ results }) => {
-//     const data = searchHandle(results);
-//     const markup = createMarkupSearchedList(data);
-//     refs.moviesList.innerHTML = markup;
-//   })
-//   .catch(handleError)
-//   .finally(() => {
-//     // here should be spinner.close
-//   });
-// }
-
-// function searchHandle(data) {
-//   return data.map(
-//     ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
-//       const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-//       const genres = trimGenresList(genre_ids);
-
-//       return {
-//         imgUrl: imgUrl,
-//         genres: genres,
-//         rating: vote_average.toFixed(1),
-//         name: title,
-//         id: id,
-//         year: Number.parseInt(release_date),
-//       };
-//     }
-//   );
-// }

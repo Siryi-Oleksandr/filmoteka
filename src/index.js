@@ -14,10 +14,13 @@ import debounce from 'lodash.debounce';
 import { ModalServise } from './js/modal-servise';
 import { LocalStorageService } from './js/localStorage-service';
 import { spinnerPlay, spinnerStop } from './js/spinner';
+import { DataService } from './js/data-service';
+
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service
 const localStorage = new LocalStorageService(); // create new instance Class LocalStorage Service
+const dataService = new DataService(); // create new instance Class Data Service
 
 // ! add listeners
 refs.moviesList.addEventListener('click', onFetchCurrentMovie);
@@ -56,12 +59,12 @@ function handleTrendMovies(data) {
   const { results } = data[0]; // get movies from first promise
   const { genres } = data[1]; // get genres from second promise
 
-  const necessaryData = getDataTrendMovies(results, genres);
+  const necessaryData = dataService.getDataTrendMovies(results, genres);
   showTrendMovies(necessaryData);
 }
 
 function handleSelectedMovie(data) {
-  const necessaryData = getDataSelectedMovie(data);
+  const necessaryData = dataService.getDataSelectedMovie(data);
   showSelectedMovie(necessaryData);
   modalServise.openModal();
 }
@@ -76,69 +79,17 @@ function showSelectedMovie(movie) {
   refs.modalContainer.innerHTML = markupSelectedMovie;
 }
 
-// function which handle respose data from API and return necessary data
-function getDataTrendMovies(results, allGenres) {
-  return results.map(
-    ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
-      const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-      const genres = getTrendMovieGenres(genre_ids, allGenres);
-
-      return {
-        imgUrl: imgUrl,
-        genres: genres,
-        rating: vote_average.toFixed(1),
-        name: title,
-        id: id,
-        year: Number.parseInt(release_date),
-      };
-    }
-  );
-}
-
-//  ? ******************************
-function getDataSelectedMovie(data) {
-  const {
-    poster_path,
-    genres,
-    vote_average,
-    vote_count,
-    popularity,
-    title,
-    original_title,
-    overview,
-  } = data;
-
-  const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-
-  return {
-    imgUrl: imgUrl,
-    name: title,
-    vote: vote_average.toFixed(1),
-    votes: vote_count,
-    popularity: popularity,
-    originalTitle: original_title,
-    genres: getSelectedMovieGenres(genres),
-    about: overview,
-  };
-}
-
-function getTrendMovieGenres(genreIds, allGenres) {
-  const result = [];
-
-  genreIds.find(genreId => {
-    allGenres.forEach(genre => {
-      if (genre.id === genreId) {
-        result.push(genre.name);
-      }
-    });
-  });
-
-  return result;
-}
-
-//  ? ******************************
-function getSelectedMovieGenres(arr) {
-  return arr.map(el => el.name).join(', ');
+function onAddToLibrary(evt) {
+  const isBtnAddToQueue = evt.target.name === 'add-to-queue';
+  const isBtnAddToWatched = evt.target.name === 'add-to-watched';
+  if (isBtnAddToQueue) {
+    const movieToQueue = movieServise.selectedMovieId;
+    localStorage.save(localStorage.queueKey, movieToQueue);
+  }
+  if (isBtnAddToWatched) {
+    const movieToWatched = movieServise.selectedMovieId;
+    localStorage.save(localStorage.watchedKey, movieToWatched);
+  }
 }
 
 function handleError(err) {
@@ -147,14 +98,17 @@ function handleError(err) {
   console.log('Oops, something went wrong main page');
 }
 
-// // Search reason functionality
+// Search reason functionality
 // refs.searchForm.addEventListener('input', debounce(onSearchInput, 300));
-// refs.searchForm.addEventListener('submit', onSearchInput);
+// refs.searchForm.addEventListener('submit', onSearchSubmit);
 
-// function onSearchInput(event) {
+// function onSearchSubmit(event) {
 //   event.preventDefault();
 
-//   const value = event.target.value.trim();
+//   // const value = event.currentTarget.elements.query.value;
+//   const value = event.target.value;
+
+//   console.dir(value);
 
 //   if (!value) {
 //     movieServise
@@ -166,17 +120,25 @@ function handleError(err) {
 //       });
 //   }
 
-//   return movieServise
+//   movieServise
 //     .fetchSearchedMovie(value)
-//     .then(({ results }) => {
-//       const data = searchHandle(results);
-//       const markup = createMarkupSearchedList(data);
-//       refs.moviesList.innerHTML = markup;
-//     })
+//     .then(data => console.log(data))
 //     .catch(handleError)
 //     .finally(() => {
 //       // here should be spinner.close
 //     });
+
+// return movieServise
+//   .fetchSearchedMovie(value)
+//   .then(({ results }) => {
+//     const data = searchHandle(results);
+//     const markup = createMarkupSearchedList(data);
+//     refs.moviesList.innerHTML = markup;
+//   })
+//   .catch(handleError)
+//   .finally(() => {
+//     // here should be spinner.close
+//   });
 // }
 
 // function searchHandle(data) {
@@ -196,16 +158,3 @@ function handleError(err) {
 //     }
 //   );
 // }
-
-function onAddToLibrary(evt) {
-  const isBtnAddToQueue = evt.target.name === 'add-to-queue';
-  const isBtnAddToWatched = evt.target.name === 'add-to-watched';
-  if (isBtnAddToQueue) {
-    const movieToQueue = movieServise.selectedMovieId;
-    localStorage.save(localStorage.queueKey, movieToQueue);
-  }
-  if (isBtnAddToWatched) {
-    const movieToWatched = movieServise.selectedMovieId;
-    localStorage.save(localStorage.watchedKey, movieToWatched);
-  }
-}

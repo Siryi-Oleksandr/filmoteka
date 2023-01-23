@@ -48,6 +48,7 @@ export function createMarkupSelectedMovie(movieData) {
     genres,
     about,
   } = movieData;
+  const genresToShow = trimGenresList(genres);
 
   return `<div class="img-wrapper">
       <img src="${imgUrl}" alt="${name}" class="modal-main__img" />
@@ -75,7 +76,7 @@ export function createMarkupSelectedMovie(movieData) {
           </li>
           <li class="movie-info__item">
             <span class="movie-info__param">Genre</span>
-            <span class="movie-info__value">${genres}</span>
+            <span class="movie-info__value">${genresToShow}</span>
           </li>
         </ul>
         <h3 class="modal-info__subtitle">ABOUT</h3>
@@ -127,7 +128,7 @@ export function createMarkupLibraryList(moviesData) {
   return moviesData
     .map(movie => {
       const { genres, id, imgUrl, name, vote, year } = movie;
-      // const genresToShow = trimGenresList(genres);
+      const genresToShow = trimGenresList(genres);
 
       return `<li class="films__item js-target" data-id="${id}">
                   <div class="films__img-wrapper">
@@ -140,7 +141,7 @@ export function createMarkupLibraryList(moviesData) {
           <div class="films__info">
             <p class="films__name">${name}</p>
             <p class="films__desk">
-              <span class="films__genre">${genres}</span> |
+              <span class="films__genre">${genresToShow}</span> |
               <span class="films__year">${year}</span>
             </p>
             <p class="films__desk">

@@ -4,6 +4,7 @@ import { MoviesApiServise } from './js/search-servise';
 import { ModalServise } from './js/modal-servise';
 import { LocalStorageService } from './js/localStorage-service';
 import { DataService } from './js/data-service';
+import { spinnerPlay, spinnerStop } from './js/spinner';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service
@@ -17,12 +18,13 @@ refs.btnQueue.addEventListener('click', onShowQueueMovies);
 refs.btnWatched.addEventListener('click', onShowWatchedMovies);
 
 // ! Default Render Library Page
+spinnerPlay();
 movieServise
   .fetchQueueMovies(queueMovieIds)
   .then(handleQueueMovie)
   .catch(handleError)
   .finally(() => {
-    // here should be spinner.close
+    spinnerStop();
   });
 
 function handleQueueMovie(movies) {
@@ -40,23 +42,25 @@ function showQueueMovies(movies) {
 function onShowQueueMovies() {
   refs.btnQueue.classList.add('is-active');
   refs.btnWatched.classList.remove('is-active');
+  spinnerPlay();
   movieServise
     .fetchQueueMovies(queueMovieIds)
     .then(handleQueueMovie)
     .catch(handleError)
     .finally(() => {
-      // here should be spinner.close
+      spinnerStop();
     });
 }
 function onShowWatchedMovies() {
   refs.btnWatched.classList.add('is-active');
   refs.btnQueue.classList.remove('is-active');
+  spinnerPlay();
   movieServise
     .fetchQueueMovies(watchedMovieIds)
     .then(handleQueueMovie)
     .catch(handleError)
     .finally(() => {
-      // here should be spinner.close
+      spinnerStop();
     });
 }
 

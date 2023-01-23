@@ -43,13 +43,18 @@ export class MoviesApiServise {
   }
 
   async fetchSearchedMovie(searchMovie) {
-    const response = await axios.get(
+    const responseSearchedMovies = await axios.get(
       `${this.baseUrl}search/movie/?api_key=${
         this.#API_KEY
       }&query=${searchMovie}`
     );
 
-    return response.data;
+    const responseGenres = await axios.get(
+      `${this.baseUrl}genre/movie/list?api_key=${this.#API_KEY}&language=en-US`
+    );
+
+    return [responseSearchedMovies.data, responseGenres.data]; // return in index.js two promises
+    // in this methot we don't use construction try...catch becouse we handle result in outer code and use there then...catch...finally
   }
 
   async fetchQueueMovies(ids) {

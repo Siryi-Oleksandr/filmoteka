@@ -7,8 +7,8 @@ import { MoviesApiServise } from './js/search-servise';
 import debounce from 'lodash.debounce';
 import { ModalServise } from './js/modal-servise';
 import { LocalStorageService } from './js/localStorage-service';
-import { spinnerPlay, spinnerStop } from './js/spinner';
 import { DataService } from './js/data-service';
+import { spinnerPlay, spinnerStop } from './js/spinner';
 
 const movieServise = new MoviesApiServise(); // create new instance Class API Service
 const modalServise = new ModalServise(); // create new instance Class Modal Service

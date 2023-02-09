@@ -4,7 +4,7 @@ import { createMarkupSelectedMovie } from './markup';
 import { fetchTrailerKey } from './modal-trailer';
 import { onAddToLocalStorage } from './addToLocalStorage';
 import { AddToFirebase } from './addToFirebase';
-
+import { showMovieFromFirebase } from './library-markup';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
@@ -21,6 +21,7 @@ const refs = {
   closeModalBtn: document.querySelector('[data-modal-close]'),
   trailerBtn: document.querySelector('.trailer-btn'),
   watchedLibraryBtn: document.querySelector('.js-btn-library-watched'),
+  queueLibraryBtn: document.querySelector('.js-btn-library-queue'),
 };
 
 // create copy FireBase obj
@@ -154,14 +155,6 @@ export function openModal(evt) {
   toggleModal();
 }
 
-export function bodyScrollOff() {
-  // scrollX = window.scrollX;
-  // scrollY = window.scrollY;
-  // window.onscroll = function () {
-  //   window.scrollTo(scrollX, scrollY);
-  // };
-}
-
 function toggleModal() {
   window.addEventListener('keydown', onEscPress);
   refs.modalMovies.classList.toggle('is-hidden');
@@ -169,10 +162,28 @@ function toggleModal() {
   if (refs.modalMovies.classList.contains('is-hidden')) {
     window.removeEventListener('keydown', onEscPress);
     document.body.classList.remove('disable-scroll');
+  }
 
-    // window.onscroll = function () {
-    //   window.scrollTo();
-    // };
+  let isLibrary = ifLibrary();
+  let isCloseModal = refs.modalMovies.classList.contains('is-hidden');
+
+  if (isLibrary && isCloseModal) {
+    let watchedLibraryBtn = document.querySelector('.js-btn-library-watched');
+    let queueLibraryBtn = document.querySelector('.js-btn-library-queue');
+
+    let isWatchedFilms = watchedLibraryBtn.classList.contains(
+      'main-btn--library-active'
+    );
+    let isQueueFilms = queueLibraryBtn.classList.contains(
+      'main-btn--library-active'
+    );
+
+    if (isWatchedFilms) {
+      showMovieFromFirebase('Watched');
+    }
+    if (isQueueFilms) {
+      showMovieFromFirebase('Queue');
+    }
   }
 }
 
@@ -292,4 +303,8 @@ function checkKeyInFirebase(data) {
     .finally(() => {
       spinner.stop();
     });
+}
+
+function ifLibrary() {
+  return document.documentURI.includes('library.html');
 }

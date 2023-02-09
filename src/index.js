@@ -20,6 +20,7 @@ import { scrollTop } from './js/button';
 
 // filters
 import './js/filter-search-films';
+import './js/animationsFilterBtn';
 
 // ! Section for create new Class instances:
 // here you create new Class instances
@@ -40,8 +41,6 @@ import { FireBaseService } from './js/firebase';
 import { refs } from './js/refs';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { toFirebase } from './js/modal';
-// import { toFirebaseLib } from './library';
-// console.log(toFirebaseLib);
 
 const firebaseAppConfig = getFirebaseConfig();
 const firebase = new FireBaseService();

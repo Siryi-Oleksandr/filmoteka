@@ -1,6 +1,9 @@
 import { createMarkupLibraryList } from './markup';
 // import { paginationLib } from './library-pagination';
 // import { Pagination } from 'swiper';
+import { Spinner } from './spinner';
+
+const spinner = new Spinner();
 
 const list = document.querySelector('.js-films-list-library');
 const libraryWatcehd = document.querySelector('.js-btn-library-watched');
@@ -13,16 +16,6 @@ let queueFilms = localStorage.getItem(queuedKey);
 let arr = [];
 let totalFilms = 0;
 let fireBase = null;
-
-// export function onQueue() {
-//   libraryQueue.addEventListener('click', onQueueClick);
-//   checkLocalStorage(queueFilms);
-// }
-
-// export function onWatched() {
-//   libraryWatcehd.addEventListener('click', onWatchedClick);
-//   checkLocalStorage(watchedFilms);
-// }
 
 export function onLoadLibrary(firebaseLib) {
   libraryQueue.addEventListener('click', onQueueClick);
@@ -69,6 +62,7 @@ export function checkLocalStorage(key) {
 }
 
 function getDataFromFirebase(movieType = 'Queue') {
+  spinner.start();
   fireBase
     .readMovieData(movieType)
     .then(({ arrFilms }) => {
@@ -83,5 +77,8 @@ function getDataFromFirebase(movieType = 'Queue') {
     })
     .catch(error => {
       console.error(error);
+    })
+    .finally(() => {
+      spinner.stop();
     });
 }

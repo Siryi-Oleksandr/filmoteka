@@ -1,14 +1,24 @@
-import { MoviesApiServise, baseImgUrl, imgPosterSize } from './search-servise';
-import { GenresService } from './genres-service';
+import { getTrendMovieGenres } from './trandingfilms';
+import defaultImg from '../images/movie-pic.jpg';
 
-const genresService = new GenresService();
+const baseImgUrl = `https://image.tmdb.org/t/p/`;
+const imgPosterSize = `w500`;
 
 export class DataService {
-  getDataTrendMovies(results, allGenres) {
+  getDataTrendMovies(results) {
     return results.map(
       ({ poster_path, genre_ids, vote_average, title, id, release_date }) => {
-        const imgUrl = baseImgUrl + imgPosterSize + poster_path;
-        const genres = genresService.getTrendMovieGenres(genre_ids, allGenres);
+        let imgUrl = baseImgUrl + imgPosterSize + poster_path;
+        let year = Number.parseInt(release_date);
+        const genres = getTrendMovieGenres(genre_ids);
+
+        if (!poster_path) {
+          imgUrl = defaultImg;
+        }
+
+        if (!release_date) {
+          year = 'Unknown date';
+        }
 
         return {
           imgUrl: imgUrl,
@@ -16,7 +26,7 @@ export class DataService {
           rating: vote_average.toFixed(1),
           name: title,
           id: id,
-          year: Number.parseInt(release_date),
+          year: year,
         };
       }
     );
@@ -44,7 +54,7 @@ export class DataService {
       votes: vote_count,
       popularity: popularity,
       originalTitle: original_title,
-      genres: genresService.getSelectedMovieGenres(genres),
+      // genres: genresService.getSelectedMovieGenres(genres), // TODO here you need handle genres
       about: overview,
       year: Number.parseInt(release_date),
     };

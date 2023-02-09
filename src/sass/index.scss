@@ -1,17 +1,23 @@
-@import './common';
+@import './base/common';
 @import './base/reset';
-@import './base/typography';
+@import './base/fonts';
+
 @import './utils/variables';
-@import './utils/placeholders';
-@import './utils/mixins';
 
 @import './base/body';
+
 @import './layout/header-main';
 @import './layout/header-library';
-@import './layout/main'; //???
-@import './layout/filmoteka-main';
+@import './layout/main';
 @import './layout/footer';
-@import './layout/modal-main';
+@import './layout/footer-modal';
+@import './layout/registr-modal';
+@import './layout/modal';
+@import './layout/registration-modal';
+
 @import './components/buttons';
 @import './components/backdrop';
-@import './components/spiner';
+@import './components/spinner';
+@import './components/pagination';
+@import './components/button';
+@import './components/user-data';

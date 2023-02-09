@@ -66,14 +66,14 @@ export function showMovieFromFirebase(movieType = 'Queue') {
   fireBase
     .readMovieData(movieType)
     .then(({ arrFilms }) => {
-      if (!arrFilms) {
+      if (arrFilms.length === 0) {
         list.innerHTML = `<li class="empty-storage">
       <div>Sorry, this storage is empty.</div>
+      <a class="home-btn" href="./index.html">Home</a>
     </li>`;
-        // paginationLib(0, 0);
+      } else {
+        list.innerHTML = createMarkupLibraryList(arrFilms);
       }
-
-      list.innerHTML = createMarkupLibraryList(arrFilms);
     })
     .catch(error => {
       console.error(error);

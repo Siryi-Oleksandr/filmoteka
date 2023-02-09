@@ -101,8 +101,6 @@ export function onAddToLocalStorage(data, firebaseObj) {
         if (!isUnique) {
           movies.push(data);
           localStorage.setItem(watchedKey, JSON.stringify(movies));
-        } else {
-          console.log('This film in your collection');
         }
       } else {
         localStorage.setItem(watchedKey, JSON.stringify([data]));
@@ -128,8 +126,6 @@ export function onAddToLocalStorage(data, firebaseObj) {
         if (!isUnique) {
           movies.push(data);
           localStorage.setItem(queuedKey, JSON.stringify(movies));
-        } else {
-          console.log('This film in your collection');
         }
       } else {
         localStorage.setItem(queuedKey, JSON.stringify([data]));

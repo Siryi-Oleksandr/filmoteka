@@ -6,7 +6,7 @@ import { Spinner } from './spinner';
 const spinner = new Spinner();
 
 const list = document.querySelector('.js-films-list-library');
-const libraryWatcehd = document.querySelector('.js-btn-library-watched');
+const libraryWatched = document.querySelector('.js-btn-library-watched');
 const libraryQueue = document.querySelector('.js-btn-library-queue');
 
 const watchedKey = 'watchedMovies';
@@ -19,24 +19,24 @@ let fireBase = null;
 
 export function onLoadLibrary(firebaseLib) {
   libraryQueue.addEventListener('click', onQueueClick);
-  libraryWatcehd.addEventListener('click', onWatchedClick);
+  libraryWatched.addEventListener('click', onWatchedClick);
   // checkLocalStorage(queueFilms);
   fireBase = firebaseLib;
-  fireBase.afterLogin = getDataFromFirebase;
+  fireBase.afterLogin = showMovieFromFirebase;
 }
 
 function onWatchedClick() {
   libraryQueue.classList.remove('main-btn--library-active');
-  libraryWatcehd.classList.add('main-btn--library-active');
+  libraryWatched.classList.add('main-btn--library-active');
   // checkLocalStorage(watchedFilms);
-  getDataFromFirebase('Watched');
+  showMovieFromFirebase('Watched');
 }
 
 function onQueueClick() {
-  libraryWatcehd.classList.remove('main-btn--library-active');
+  libraryWatched.classList.remove('main-btn--library-active');
   libraryQueue.classList.add('main-btn--library-active');
   // checkLocalStorage(queueFilms);
-  getDataFromFirebase('Queue');
+  showMovieFromFirebase('Queue');
 }
 
 export function checkLocalStorage(key) {
@@ -61,7 +61,7 @@ export function checkLocalStorage(key) {
   }
 }
 
-function getDataFromFirebase(movieType = 'Queue') {
+export function showMovieFromFirebase(movieType = 'Queue') {
   spinner.start();
   fireBase
     .readMovieData(movieType)

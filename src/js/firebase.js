@@ -57,10 +57,11 @@ export class FireBaseService {
   // Initialize firebase auth
   initFirebaseAuth() {
     // Listen to auth state changes.
-    onAuthStateChanged(getAuth(), this.callTest);
+    onAuthStateChanged(getAuth(), this.observer);
   }
 
-  callTest = user => {
+  // Listen to auth state changes for using in diferent pages
+  observer = user => {
     authStateObserver(user);
 
     if (user && typeof this.afterLogin === 'function') {

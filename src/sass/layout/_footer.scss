@@ -1,47 +1,70 @@
 .footer {
   background-color: $bg-footer-color;
-}
-
-.footer__container {
-  padding: 30px 0;
-
-  @media screen and (min-width: 480px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
+  &__icon {
+    stroke: $txt-active-color;
+    fill: $txt-active-color;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  }
+  &__btn {
+    display: inline-block;
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+    cursor: pointer;
+    color: $txt-footer-color;
   }
 }
+.footer__btn {
+  transition: $animation;
 
-.footer__description {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Roboto';
-  font-size: 14px;
-  line-height: calc(16 / 14);
-
+  &:hover,
+  &:focus {
+    color: $orange-hover;
+  }
+}
+.wraper {
   text-align: center;
+  padding-top: 29px;
+  padding-bottom: 28px;
 
   color: $txt-footer-color;
-
+  font-family: 'Roboto';
+  font-size: 14px;
   @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
     font-size: 16px;
-    line-height: calc(19 / 16);
+    line-height: 1.19;
   }
 }
-
-.footer__details {
-  display: block;
-  padding: 0 5px;
-  border-right: 1px solid $txt-footer-color;
+.copyrights {
+  margin-bottom: 10px;
 }
 
 .footer__icon {
-  margin: 0 10px;
-  fill: $bg-active-color;
+  animation: heartbeat 1250ms cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
 }
 
-.footer__link {
-  text-decoration: underline;
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.4);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.dark .footer {
+  background-color: #1e2329;
 }

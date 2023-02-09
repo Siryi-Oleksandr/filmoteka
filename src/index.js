@@ -1,127 +1,67 @@
-import {
-  createMarkupFilmsList,
-  createMarkupSelectedMovie,
-} from './js/card-markup';
+// ALL IMPORTS:
+import { initializeApp } from 'firebase/app';
+import { getFirebaseConfig } from './js/firebase-config';
+
+// import Notiflix from 'notiflix';
+// import { Notify } from 'notiflix/build/notiflix-notify-aio';
+// import axios from 'axios';
+// import {Spinner} from 'spin.js';
+
+import { saveGenres } from './js/trandingfilms';
+import { renderTrendMovie } from './js/trandingfilms';
+import './js/search-films';
+// Створення Модальогое вікна обраного фільму Modal Movies
+import './js/modal';
+import './js/footer-modal';
+import './js/registr-modal';
+//  Кнопка догори
+import { scrollTop } from './js/button';
+// import { refs } from './js/refs';
+
+// filters
+import './js/filter-search-films';
+
+// ! Section for create new Class instances:
+// here you create new Class instances
+
+// ! Section for add listeners:
+// here you add listeners
+
+// ! MAIN LOGIC CODE
+saveGenres();
+renderTrendMovie();
+
+// ! additional functions
+//  here you add neccessary functions
+
+// ! FireBase logic authentification *******************************************
+
+import { FireBaseService } from './js/firebase';
 import { refs } from './js/refs';
-import { MoviesApiServise } from './js/search-servise';
-import debounce from 'lodash.debounce';
-import { ModalServise } from './js/modal-servise';
-import { LocalStorageService } from './js/localStorage-service';
-import { DataService } from './js/data-service';
-import { spinnerPlay, spinnerStop } from './js/spinner';
+import { Report } from 'notiflix/build/notiflix-report-aio';
+import { toFirebase } from './js/modal';
+// import { toFirebaseLib } from './library';
+// console.log(toFirebaseLib);
 
-const movieServise = new MoviesApiServise(); // create new instance Class API Service
-const modalServise = new ModalServise(); // create new instance Class Modal Service
-const localStorage = new LocalStorageService(); // create new instance Class LocalStorage Service
-const dataService = new DataService(); // create new instance Class Data Service
+const firebaseAppConfig = getFirebaseConfig();
+const firebase = new FireBaseService();
 
-// ! add listeners
-refs.moviesList.addEventListener('click', onFetchCurrentMovie);
-refs.modalContainer.addEventListener('click', onAddToLibrary);
-refs.searchForm.addEventListener('submit', onSearchSubmit);
+// add listeners
+refs.signInWithGoogle.addEventListener('click', firebase.signIn);
+refs.signOutButtonElement.addEventListener('click', firebase.signOutUser);
+refs.libraryLink.addEventListener('click', onGoToLibrary);
 
-// ! main fetch
-spinnerPlay();
-movieServise
-  .fetchTrendMovies()
-  .then(handleTrendMovies)
-  .catch(handleError)
-  .finally(() => {
-    spinnerStop();
-  });
+// * Initialize Firebase
+initializeApp(firebaseAppConfig);
+// * Initialize Firebase Performance Monitoring
+firebase.initFirebaseAuth();
 
-// ! Selected movie
-function onFetchCurrentMovie(evt) {
-  if (!evt.target.closest('.js-target')) {
-    return;
+toFirebase(firebase);
+
+async function onGoToLibrary() {
+  const isUser = await firebase.isUserSignedIn();
+  if (!isUser) {
+    return Report.warning('Please sign in to your account!', '', 'Okay');
   }
-
-  const selectedMovieId = evt.target.closest('.js-target').dataset.id; // catch user click on li
-  spinnerPlay();
-  movieServise
-    .fetchSelectedMovie(selectedMovieId)
-    .then(handleSelectedMovie)
-    .catch(handleError)
-    .finally(() => {
-      spinnerStop();
-    });
-}
-
-// ! Set functions
-
-function handleTrendMovies(data) {
-  const { results } = data[0]; // get movies from first promise
-  const { genres } = data[1]; // get genres from second promise
-
-  const necessaryData = dataService.getDataTrendMovies(results, genres);
-  showTrendMovies(necessaryData);
-}
-
-function handleSelectedMovie(data) {
-  const necessaryData = dataService.getDataSelectedMovie(data);
-  showSelectedMovie(necessaryData);
-  modalServise.openModal();
-}
-
-function showTrendMovies(movies) {
-  const markupTrendMovies = createMarkupFilmsList(movies);
-  refs.moviesList.innerHTML = markupTrendMovies;
-}
-
-function showSelectedMovie(movie) {
-  const markupSelectedMovie = createMarkupSelectedMovie(movie);
-  refs.modalContainer.innerHTML = markupSelectedMovie;
-}
-
-function onAddToLibrary(evt) {
-  const isBtnAddToQueue = evt.target.name === 'add-to-queue';
-  const isBtnAddToWatched = evt.target.name === 'add-to-watched';
-  if (isBtnAddToQueue) {
-    const movieToQueue = movieServise.selectedMovieId;
-    localStorage.save(localStorage.queueKey, movieToQueue);
-  }
-  if (isBtnAddToWatched) {
-    const movieToWatched = movieServise.selectedMovieId;
-    localStorage.save(localStorage.watchedKey, movieToWatched);
-  }
-}
-
-function handleError(err) {
-  console.error(err.message);
-  // here should be Notify message
-  console.log('Oops, something went wrong main page');
-}
-
-// Search reason functionality
-function onSearchSubmit(event) {
-  event.preventDefault();
-
-  const searchValue = event.currentTarget.elements.query.value;
-
-  if (!searchValue) {
-    spinnerPlay();
-    movieServise
-      .fetchTrendMovies()
-      .then(handleTrendMovies)
-      .catch(handleError)
-      .finally(() => {
-        spinnerStop();
-      });
-  }
-  spinnerPlay();
-  movieServise
-    .fetchSearchedMovie(searchValue)
-    .then(handleSearchedMovies)
-    .catch(handleError)
-    .finally(() => {
-      spinnerStop();
-    });
-}
-
-function handleSearchedMovies(data) {
-  const { results } = data[0]; // get movies from first promise
-  const { genres } = data[1]; // get genres from second promise
-
-  const necessaryData = dataService.getDataTrendMovies(results, genres);
-  showTrendMovies(necessaryData);
+  window.location.href = './library.html';
 }

@@ -1,37 +1,59 @@
 <header class="header">
   <div class="container">
-    <nav class="header__nav nav">
-      <a href="/src/index.html" class="logo__link">
+    <nav class="nav">
+      <a href="./index.html">
         <svg class="logo__icon" width="24" height="24">
-          <use href="./images/sprite.svg#film"></use>
+          <use href="./images/sprite/icons.svg#icon-film"></use>
         </svg>
-        <span class="logo__title">Filmoteka</span></a
-      >
+        <span class="logo">Filmoteka</span></a>
       <ul class="nav__list">
         <li class="nav__item">
-          <a href="/src/index.html" class="nav__link nav__link--current"
-            >Home</a
-          >
+          <a href="./index.html" class="nav__title nav__title--current">HOME</a>
         </li>
         <li class="nav__item">
-          <a href="/src/library.html" class="nav__link nav__link--redirect"
-            >My Library</a
-          >
+          <a href="#" id="library-link" class="nav__title js-nav__title nav__title--redirect">MY LIBRARY</a>
         </li>
+     
       </ul>
+
+      <div id="user-container" class="visually-hidden">
+        <div id="user-pic"></div>
+        <div id="user-name"></div>
+      </div>
+
+      <div class="registration-btn-wrap">
+        <button type="button" class="registration-btn js-sign-in" data-modal-open-registr>
+          <span>sign in</span>
+          <svg class="registration-btn-icon" width="16" height="16">
+            <use href="./images/sprite/icons.svg#icon-enter"></use>
+          </svg>
+        </button>
+        <button type="button" class="registration-btn js-sign-out visually-hidden">
+          <span>sign out</span>
+          <svg class="registration-btn-icon" width="16" height="16">
+            <use href="./images/sprite/icons.svg#icon-exit"></use>
+          </svg>
+        </button>
+      </div>
+
     </nav>
-    <form class="header__form" action="submit">
-      <input
-        type="text"
-        class="header__input"
-        placeholder="Movie search"
-        name="query"
-      />
-      <button class="btn btn-submit">
-        <svg class="btn-submit__icon" width="12" height="12">
-          <use href="./images/sprite.svg#search"></use>
+
+    <a href="#" class="themetoggle">
+        <span class="material-symbols-outlined"> wb_sunny </span>
+    </a>
+
+    <form class="header__form" id="search-form">
+      <input type="text" name="searchQuery" autocomplete="off" class="header__input" placeholder="Movie search..."
+        name="query" />
+      <button type="submit" class="button-search">
+        <svg class="button-search__icon" width="12" height="12">
+          <use href="./images/sprite/icons.svg#search"></use>
         </svg>
       </button>
+
     </form>
+    
+  </div>
+  </form>
   </div>
 </header>

@@ -8,6 +8,9 @@ import { AddToFirebase } from './addToFirebase';
 import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import { Spinner } from './spinner';
+
+const spinner = new Spinner();
 
 const addToFirebase = new AddToFirebase();
 
@@ -65,7 +68,8 @@ export function openModal(evt) {
       const removeWatchedeBtn = document.querySelector(
         '.js-btn-remove-watched'
       );
-      checkKeyInLocal(data);
+      // checkKeyInLocal(data);
+      checkKeyInFirebase(data);
 
       watchedBtn.addEventListener('click', handleWathedBtnClick);
       queuedBtn.addEventListener('click', handleQueueBtnClick);
@@ -232,4 +236,60 @@ function checkKeyInLocal(data) {
       removeQueueBtn.classList.remove('visually-hidden');
     }
   }
+}
+
+function checkKeyInFirebase(data) {
+  const queuedBtn = document.querySelector('.js-btn-queue');
+  const watchedBtn = document.querySelector('.js-btn-watched');
+  const removeQueueBtn = document.querySelector('.js-btn-remove-queue');
+  const removeWatchedeBtn = document.querySelector('.js-btn-remove-watched');
+  spinner.start();
+  firebaseObj
+    .readMovieData('Queue')
+    .then(({ arrFilms }) => {
+      if (!arrFilms) {
+        queuedBtn.classList.remove('visually-hidden');
+        removeQueueBtn.classList.add('visually-hidden');
+      }
+
+      const isUnique = arrFilms.some(elem => elem.id === data.id);
+
+      if (isUnique) {
+        queuedBtn.classList.add('visually-hidden');
+        removeQueueBtn.classList.remove('visually-hidden');
+      }
+      if (!isUnique) {
+        queuedBtn.classList.remove('visually-hidden');
+        removeQueueBtn.classList.add('visually-hidden');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
+  firebaseObj
+    .readMovieData('Watched')
+    .then(({ arrFilms }) => {
+      if (!arrFilms) {
+        watchedBtn.classList.remove('visually-hidden');
+        removeWatchedeBtn.classList.add('visually-hidden');
+      }
+
+      const isUnique = arrFilms.some(elem => elem.id === data.id);
+
+      if (isUnique) {
+        watchedBtn.classList.add('visually-hidden');
+        removeWatchedeBtn.classList.remove('visually-hidden');
+      }
+      if (!isUnique) {
+        watchedBtn.classList.remove('visually-hidden');
+        removeWatchedeBtn.classList.add('visually-hidden');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+    })
+    .finally(() => {
+      spinner.stop();
+    });
 }

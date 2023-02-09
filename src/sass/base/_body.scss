@@ -1,11 +1,15 @@
 body {
   font-family: 'Roboto', 'Montserrat', sans-serif;
   color: $txt-black-color;
+  min-height: 101%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 }
 
 html {
   transition: color $animation, background-color $animation,
     box-shadow $animation, transform $animation;
+  height: 100%;
 }
 
 .container {

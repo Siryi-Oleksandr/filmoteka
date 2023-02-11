@@ -49,19 +49,6 @@ export function openModal(evt) {
     return;
   }
 
-  let libraryPage;
-
-  if (refs.watchedLibraryBtn) {
-    libraryPage = 'queue';
-    if (
-      refs.watchedLibraryBtn.className
-        .split(' ')
-        .some(btn => btn === 'main-btn--library-active')
-    ) {
-      libraryPage = 'watched';
-    }
-  }
-
   document.querySelector('.wrap-disc').innerHTML = '';
 
   const currentMovie = evt.target.closest('.js-target');
@@ -126,8 +113,10 @@ export function openModal(evt) {
         });
       } else {
         signInBtn.classList.remove('visually-hidden');
-        queuedBtn.classList.add('visually-hidden');
-        watchedBtn.classList.add('visually-hidden');
+        queuedBtn.classList.remove('visually-hidden');
+        watchedBtn.classList.remove('visually-hidden');
+        watchedBtn.setAttribute('disabled', true);
+        queuedBtn.setAttribute('disabled', true);
         removeQueueBtn.classList.add('visually-hidden');
         removeWatchedBtn.classList.add('visually-hidden');
 

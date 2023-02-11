@@ -78,19 +78,53 @@ export function openModal(evt) {
       const signInBtn = document.querySelector('.js-modal-sign-in');
 
       if (firebaseObj.isUserSignedIn()) {
-        console.log('😎');
         signInBtn.classList.add('visually-hidden');
         // onAddToLocalStorage(data, firebaseObj);
         // checkKeyInLocal(data);
 
         checkKeyInFirebase(data);
 
-        watchedBtn.addEventListener('click', handleWathedBtnClick);
-        queuedBtn.addEventListener('click', handleQueueBtnClick);
-        removeWatchedBtn.addEventListener('click', handleRemoveWatched);
-        removeQueueBtn.addEventListener('click', handleRemoveQueue);
+        watchedBtn.addEventListener('click', () => {
+          fetchModal(currentId)
+            .then(data => {
+              addToFirebase.addMovieToFireBase(data, 'Watched');
+
+              removeWatchedBtn.classList.remove('visually-hidden');
+              watchedBtn.classList.add('visually-hidden');
+            })
+            .catch(error => console.log(error));
+        });
+        queuedBtn.addEventListener('click', () => {
+          fetchModal(currentId)
+            .then(data => {
+              addToFirebase.addMovieToFireBase(data, 'Queue');
+
+              removeQueueBtn.classList.remove('visually-hidden');
+              queuedBtn.classList.add('visually-hidden');
+            })
+            .catch(error => console.log(error));
+        });
+        removeWatchedBtn.addEventListener('click', () => {
+          fetchModal(currentId)
+            .then(data => {
+              addToFirebase.deleteMovieFromFireBase(data, 'Watched');
+
+              removeWatchedBtn.classList.add('visually-hidden');
+              watchedBtn.classList.remove('visually-hidden');
+            })
+            .catch(error => console.log(error));
+        });
+        removeQueueBtn.addEventListener('click', () => {
+          fetchModal(currentId)
+            .then(data => {
+              addToFirebase.deleteMovieFromFireBase(data, 'Queue');
+
+              removeQueueBtn.classList.add('visually-hidden');
+              queuedBtn.classList.remove('visually-hidden');
+            })
+            .catch(error => console.log(error));
+        });
       } else {
-        console.log('🥱');
         signInBtn.classList.remove('visually-hidden');
         queuedBtn.classList.add('visually-hidden');
         watchedBtn.classList.add('visually-hidden');
@@ -101,44 +135,6 @@ export function openModal(evt) {
       }
     })
     .catch(error => console.log(error));
-
-  function handleWathedBtnClick() {
-    fetchModal(currentId)
-      .then(data => {
-        addToFirebase.addMovieToFireBase(data, 'Watched');
-
-        // refs.removeWatchedBtn.classList.remove('visually-hidden');
-        // refs.watchedBtn.classList.add('visually-hidden');
-      })
-      .catch(error => console.log(error));
-  }
-  function handleQueueBtnClick() {
-    fetchModal(currentId)
-      .then(data => {
-        addToFirebase.addMovieToFireBase(data, 'Queue');
-      })
-      .catch(error => console.log(error));
-  }
-  function handleRemoveQueue() {
-    if (!firebaseObj.isUserSignedIn()) {
-      return Report.warning('Please sign in to your account!', '', 'Okay');
-    }
-    fetchModal(currentId)
-      .then(data => {
-        addToFirebase.deleteMovieFromFireBase(data, 'Queue');
-      })
-      .catch(error => console.log(error));
-  }
-  function handleRemoveWatched() {
-    if (!firebaseObj.isUserSignedIn()) {
-      return Report.warning('Please sign in to your account!', '', 'Okay');
-    }
-    fetchModal(currentId)
-      .then(data => {
-        addToFirebase.deleteMovieFromFireBase(data, 'Watched');
-      })
-      .catch(error => console.log(error));
-  }
 
   fetchTrailerKey(currentId).then(key => {
     refs.trailerBtn.onclick = () => {
@@ -218,10 +214,6 @@ function onBackdropClick(evt) {
 function onEscPress(evt) {
   if (evt.key === 'Escape') {
     toggleModal();
-
-    // window.onscroll = function () {
-    //   window.scrollTo();
-    // };
   }
 }
 
@@ -326,3 +318,52 @@ function checkKeyInFirebase(data) {
 function ifLibrary() {
   return document.documentURI.includes('library.html');
 }
+
+// ! Delete in production
+
+//  function handleWathedBtnClick() {
+//    fetchModal(currentId)
+//      .then(data => {
+//        addToFirebase.addMovieToFireBase(data, 'Watched');
+
+//        // refs.removeWatchedBtn.classList.remove('visually-hidden');
+//        // refs.watchedBtn.classList.add('visually-hidden');
+//      })
+//      .catch(error => console.log(error));
+//  }
+//  function handleQueueBtnClick() {
+//    fetchModal(currentId)
+//      .then(data => {
+//        addToFirebase.addMovieToFireBase(data, 'Queue');
+
+//        // refs.removeQueueBtn.classList.remove('visually-hidden');
+//        // refs.queuedBtn.classList.add('visually-hidden');
+//      })
+//      .catch(error => console.log(error));
+//  }
+//  function handleRemoveQueue() {
+//    if (!firebaseObj.isUserSignedIn()) {
+//      return Report.warning('Please sign in to your account!', '', 'Okay');
+//    }
+//    fetchModal(currentId)
+//      .then(data => {
+//        addToFirebase.deleteMovieFromFireBase(data, 'Queue');
+
+//        // refs.removeQueueBtn.classList.add('visually-hidden');
+//        // refs.queuedBtn.classList.remove('visually-hidden');
+//      })
+//      .catch(error => console.log(error));
+//  }
+//  function handleRemoveWatched() {
+//    if (!firebaseObj.isUserSignedIn()) {
+//      return Report.warning('Please sign in to your account!', '', 'Okay');
+//    }
+//    fetchModal(currentId)
+//      .then(data => {
+//        addToFirebase.deleteMovieFromFireBase(data, 'Watched');
+
+//        // refs.removeWatchedBtn.classList.add('visually-hidden');
+//        // refs.watchedBtn.classList.remove('visually-hidden');
+//      })
+//      .catch(error => console.log(error));
+//  }

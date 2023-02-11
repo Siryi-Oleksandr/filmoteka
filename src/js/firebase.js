@@ -120,8 +120,6 @@ export class FireBaseService {
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 function authStateObserver(user) {
-  console.log(user);
-
   if (user) {
     // User is signed in!
     // Get the signed-in user's profile pic and name.

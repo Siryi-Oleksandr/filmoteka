@@ -9,6 +9,7 @@ import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { Spinner } from './spinner';
+import { onOpenModal } from './registr-modal';
 
 const spinner = new Spinner();
 
@@ -22,6 +23,7 @@ const refs = {
   trailerBtn: document.querySelector('.trailer-btn'),
   watchedLibraryBtn: document.querySelector('.js-btn-library-watched'),
   queueLibraryBtn: document.querySelector('.js-btn-library-queue'),
+  modalSignInBtn: document.querySelector('.js-modal-sign-in'),
 };
 
 // create copy FireBase obj
@@ -69,10 +71,11 @@ export function openModal(evt) {
       const removeWatchedeBtn = document.querySelector(
         '.js-btn-remove-watched'
       );
+      const signInBtn = document.querySelector('.js-modal-sign-in');
 
       if (firebaseObj.isUserSignedIn()) {
         console.log('😎');
-
+        signInBtn.classList.add('visually-hidden');
         // onAddToLocalStorage(data, firebaseObj);
         // checkKeyInLocal(data);
 
@@ -84,11 +87,13 @@ export function openModal(evt) {
         removeQueueBtn.addEventListener('click', handleRemoveQueue);
       } else {
         console.log('🥱');
-
+        signInBtn.classList.remove('visually-hidden');
         queuedBtn.classList.add('visually-hidden');
         watchedBtn.classList.add('visually-hidden');
         removeQueueBtn.classList.add('visually-hidden');
         removeWatchedeBtn.classList.add('visually-hidden');
+
+        signInBtn.addEventListener('click', onOpenModal);
       }
     })
     .catch(error => console.log(error));

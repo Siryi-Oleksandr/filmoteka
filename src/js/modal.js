@@ -62,27 +62,33 @@ export function openModal(evt) {
   fetchModal(currentId)
     .then(data => {
       createMarkupSelectedMovie(data);
-      onAddToLocalStorage(data, firebaseObj);
+
       const queuedBtn = document.querySelector('.js-btn-queue');
       const watchedBtn = document.querySelector('.js-btn-watched');
       const removeQueueBtn = document.querySelector('.js-btn-remove-queue');
       const removeWatchedeBtn = document.querySelector(
         '.js-btn-remove-watched'
       );
-      // checkKeyInLocal(data);
-      checkKeyInFirebase(data);
 
-      watchedBtn.addEventListener('click', handleWathedBtnClick);
-      queuedBtn.addEventListener('click', handleQueueBtnClick);
-      removeWatchedeBtn.addEventListener('click', handleRemoveWatched);
-      removeQueueBtn.addEventListener('click', handleRemoveQueue);
+      if (firebaseObj.isUserSignedIn()) {
+        console.log('😎');
 
-      if (libraryPage === 'queue') {
-        removeQueueBtn.classList.remove('visually-hidden');
+        // onAddToLocalStorage(data, firebaseObj);
+        // checkKeyInLocal(data);
+
+        checkKeyInFirebase(data);
+
+        watchedBtn.addEventListener('click', handleWathedBtnClick);
+        queuedBtn.addEventListener('click', handleQueueBtnClick);
+        removeWatchedeBtn.addEventListener('click', handleRemoveWatched);
+        removeQueueBtn.addEventListener('click', handleRemoveQueue);
+      } else {
+        console.log('🥱');
+
         queuedBtn.classList.add('visually-hidden');
-      } else if (libraryPage === 'watched') {
-        removeWatchedeBtn.classList.remove('visually-hidden');
         watchedBtn.classList.add('visually-hidden');
+        removeQueueBtn.classList.add('visually-hidden');
+        removeWatchedeBtn.classList.add('visually-hidden');
       }
     })
     .catch(error => console.log(error));

@@ -28,7 +28,7 @@ const refs = {
   queuedBtn: document.querySelector('.js-btn-queue'),
   watchedBtn: document.querySelector('.js-btn-watched'),
   removeQueueBtn: document.querySelector('.js-btn-remove-queue'),
-  removeWatchedeBtn: document.querySelector('.js-btn-remove-watched'),
+  removeWatchedBtn: document.querySelector('.js-btn-remove-watched'),
   signInBtn: document.querySelector('.js-modal-sign-in'),
 };
 
@@ -74,9 +74,7 @@ export function openModal(evt) {
       const queuedBtn = document.querySelector('.js-btn-queue');
       const watchedBtn = document.querySelector('.js-btn-watched');
       const removeQueueBtn = document.querySelector('.js-btn-remove-queue');
-      const removeWatchedeBtn = document.querySelector(
-        '.js-btn-remove-watched'
-      );
+      const removeWatchedBtn = document.querySelector('.js-btn-remove-watched');
       const signInBtn = document.querySelector('.js-modal-sign-in');
 
       if (firebaseObj.isUserSignedIn()) {
@@ -89,7 +87,7 @@ export function openModal(evt) {
 
         watchedBtn.addEventListener('click', handleWathedBtnClick);
         queuedBtn.addEventListener('click', handleQueueBtnClick);
-        removeWatchedeBtn.addEventListener('click', handleRemoveWatched);
+        removeWatchedBtn.addEventListener('click', handleRemoveWatched);
         removeQueueBtn.addEventListener('click', handleRemoveQueue);
       } else {
         console.log('🥱');
@@ -97,7 +95,7 @@ export function openModal(evt) {
         queuedBtn.classList.add('visually-hidden');
         watchedBtn.classList.add('visually-hidden');
         removeQueueBtn.classList.add('visually-hidden');
-        removeWatchedeBtn.classList.add('visually-hidden');
+        removeWatchedBtn.classList.add('visually-hidden');
 
         signInBtn.addEventListener('click', onOpenModal);
       }
@@ -107,10 +105,9 @@ export function openModal(evt) {
   function handleWathedBtnClick() {
     fetchModal(currentId)
       .then(data => {
-        console.log('😎');
         addToFirebase.addMovieToFireBase(data, 'Watched');
 
-        // refs.removeWatchedeBtn.classList.remove('visually-hidden');
+        // refs.removeWatchedBtn.classList.remove('visually-hidden');
         // refs.watchedBtn.classList.add('visually-hidden');
       })
       .catch(error => console.log(error));
@@ -118,7 +115,6 @@ export function openModal(evt) {
   function handleQueueBtnClick() {
     fetchModal(currentId)
       .then(data => {
-        console.log('😎');
         addToFirebase.addMovieToFireBase(data, 'Queue');
       })
       .catch(error => console.log(error));
@@ -129,7 +125,6 @@ export function openModal(evt) {
     }
     fetchModal(currentId)
       .then(data => {
-        console.log('😍');
         addToFirebase.deleteMovieFromFireBase(data, 'Queue');
       })
       .catch(error => console.log(error));
@@ -140,7 +135,6 @@ export function openModal(evt) {
     }
     fetchModal(currentId)
       .then(data => {
-        console.log('😛');
         addToFirebase.deleteMovieFromFireBase(data, 'Watched');
       })
       .catch(error => console.log(error));
@@ -249,7 +243,7 @@ function checkKeyInLocal(data) {
   const queuedBtn = document.querySelector('.js-btn-queue');
   const watchedBtn = document.querySelector('.js-btn-watched');
   const removeQueueBtn = document.querySelector('.js-btn-remove-queue');
-  const removeWatchedeBtn = document.querySelector('.js-btn-remove-watched');
+  const removeWatchedBtn = document.querySelector('.js-btn-remove-watched');
 
   const valueOfWatchedKey = localStorage.getItem('watchedMovies');
   const valueOfQueueKey = localStorage.getItem('queueMovies');
@@ -259,7 +253,7 @@ function checkKeyInLocal(data) {
     const isUnique = movies.some(value => value.id === data.id);
     if (isUnique) {
       watchedBtn.classList.add('visually-hidden');
-      removeWatchedeBtn.classList.remove('visually-hidden');
+      removeWatchedBtn.classList.remove('visually-hidden');
     }
   }
 
@@ -277,7 +271,7 @@ function checkKeyInFirebase(data) {
   const queuedBtn = document.querySelector('.js-btn-queue');
   const watchedBtn = document.querySelector('.js-btn-watched');
   const removeQueueBtn = document.querySelector('.js-btn-remove-queue');
-  const removeWatchedeBtn = document.querySelector('.js-btn-remove-watched');
+  const removeWatchedBtn = document.querySelector('.js-btn-remove-watched');
   spinner.start();
   firebaseObj
     .readMovieData('Queue')
@@ -307,18 +301,18 @@ function checkKeyInFirebase(data) {
     .then(({ arrFilms }) => {
       if (!arrFilms) {
         watchedBtn.classList.remove('visually-hidden');
-        removeWatchedeBtn.classList.add('visually-hidden');
+        removeWatchedBtn.classList.add('visually-hidden');
       }
 
       const isUnique = arrFilms.some(elem => elem.id === data.id);
 
       if (isUnique) {
         watchedBtn.classList.add('visually-hidden');
-        removeWatchedeBtn.classList.remove('visually-hidden');
+        removeWatchedBtn.classList.remove('visually-hidden');
       }
       if (!isUnique) {
         watchedBtn.classList.remove('visually-hidden');
-        removeWatchedeBtn.classList.add('visually-hidden');
+        removeWatchedBtn.classList.add('visually-hidden');
       }
     })
     .catch(error => {

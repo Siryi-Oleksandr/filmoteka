@@ -9,7 +9,7 @@ import * as basicLightbox from 'basiclightbox';
 import 'basiclightbox/dist/basicLightbox.min.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import { Spinner } from './spinner';
-import { onOpenModal } from './registr-modal';
+import { onOpenModal, onCloseModal } from './registr-modal';
 
 const spinner = new Spinner();
 
@@ -24,6 +24,12 @@ const refs = {
   watchedLibraryBtn: document.querySelector('.js-btn-library-watched'),
   queueLibraryBtn: document.querySelector('.js-btn-library-queue'),
   modalSignInBtn: document.querySelector('.js-modal-sign-in'),
+
+  queuedBtn: document.querySelector('.js-btn-queue'),
+  watchedBtn: document.querySelector('.js-btn-watched'),
+  removeQueueBtn: document.querySelector('.js-btn-remove-queue'),
+  removeWatchedeBtn: document.querySelector('.js-btn-remove-watched'),
+  signInBtn: document.querySelector('.js-modal-sign-in'),
 };
 
 // create copy FireBase obj
@@ -101,13 +107,18 @@ export function openModal(evt) {
   function handleWathedBtnClick() {
     fetchModal(currentId)
       .then(data => {
+        console.log('😎');
         addToFirebase.addMovieToFireBase(data, 'Watched');
+
+        // refs.removeWatchedeBtn.classList.remove('visually-hidden');
+        // refs.watchedBtn.classList.add('visually-hidden');
       })
       .catch(error => console.log(error));
   }
   function handleQueueBtnClick() {
     fetchModal(currentId)
       .then(data => {
+        console.log('😎');
         addToFirebase.addMovieToFireBase(data, 'Queue');
       })
       .catch(error => console.log(error));
@@ -118,6 +129,7 @@ export function openModal(evt) {
     }
     fetchModal(currentId)
       .then(data => {
+        console.log('😍');
         addToFirebase.deleteMovieFromFireBase(data, 'Queue');
       })
       .catch(error => console.log(error));
@@ -128,6 +140,7 @@ export function openModal(evt) {
     }
     fetchModal(currentId)
       .then(data => {
+        console.log('😛');
         addToFirebase.deleteMovieFromFireBase(data, 'Watched');
       })
       .catch(error => console.log(error));
@@ -166,7 +179,7 @@ export function openModal(evt) {
   toggleModal();
 }
 
-function toggleModal() {
+export function toggleModal() {
   window.addEventListener('keydown', onEscPress);
   refs.modalMovies.classList.toggle('is-hidden');
 
